@@ -1,7 +1,4 @@
-#include <stdlib.h>
-#include "Libft/srcs/libft.h"
-#include <unistd.h>
-#include <stdio.h>
+#include "../minishell.h"
 
 //TODOS
 //1. Support for absolute path eg. (/bin/dir1/child_dir/filename.file
@@ -34,7 +31,7 @@ int	check_is_buildin(char **cmds)
 	if (ft_strncmp(cmds[0], "echo", 4) == 0)
 		return (perform_buildin(cmds, path));
 	else if (ft_strncmp(cmds[0], "cd", 2) == 0)
-		return (perform_buildin(cmds, path));
+		return (chdir("/home/kacper/"));
 	else if (ft_strncmp(cmds[0], "pwd", 3) == 0)
 		return (perform_buildin(cmds, path));
 	else if (ft_strncmp(cmds[0], "export", 6) == 0)
