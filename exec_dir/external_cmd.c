@@ -73,14 +73,14 @@ char	**separate_paths(char *str)
 //	path_var = ft_strdup(getenv("PATH"));
 //}
 
-/*
-//int	main()
-//{
-//	//check_cmd();
-//	char *str = "test:dupa/ale/akscja:okey:bbbb";
-//	char **a = separate_paths(str);
-//	if (a == NULL)
-//		perror("ERROR!");
+
+int	main()
+{
+	//check_cmd();
+	char *str = "test:dupa/ale/akscja:okey:bbbb";
+	char **a = separate_paths(str);
+	if (a == NULL)
+		perror("ERROR!");
 	int i = 0;
 	while (a[i])
 	{
@@ -88,6 +88,13 @@ char	**separate_paths(char *str)
 		i++;
 	}
 	printf("path %d: %s\n", i, a[i]);
+
+	while (i >= 0)
+	{
+		free(a[i]);
+		i--;
+	}
+	free(a);
+	
 	return (0);
 }
-*/
