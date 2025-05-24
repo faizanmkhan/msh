@@ -1,100 +1,65 @@
 #include "../minishell.h"
 
-int	chr_in_str(char *str, char c)
+int	check_for_cmd(char **cmds, char *path)
 {
-	int	i;
-	int	count;
+	pid_t	pid;
+	char	*complete_path;
+	char	*temp;
+
+	temp = ft_strjoin(path, "/");
+	complete_path = ft_strjoin(temp, cmds[0]);
+	free(temp);
+	if (!complete_path)
+		return (-1);
+	if (access(complete_path, X_OK) == -1)
+	{
+		free(complete_path);
+		return (-1);
+	}
+	pid = fork();
+	if (pid < 0)
+	{
+		free(complete_path);
+		return (-1);
+	}
+	else if (pid == 0)
+	{
+		execv(complete_path, cmds);
+	}
+	//else
+	//{
+		//
+	//}
+	free(complete_path);
+	return (0);
+}
+
+char	**get_env_paths(void)
+{
+	char	*str;
+	char	**a;
+	int		i;
 
 	i = 0;
-	count = 0;
-	if (!str || !c)
-		return (-1);
-	while (str[i])
-		if (str[i++] == c)
-			count++;
-	return (count);
-}
-
-char	**fill_buffer_paths(char **paths, int count, char *str)
-{
-	int	last_occ;
-	int	i;
-	int	j;
-	int	len;
-
-	if (!str || !paths)
-		return (NULL);
-	len = ft_strlen(str);
-	i = -1;
-	j = -1;
-	last_occ = 0;
-	while (++i < count)
-	{
-		while (++j < len + 1)
-		{
-			if (str[j] == ':' || str[j] == '\0')
-			{
-				paths[i] = ft_substr(str, last_occ, (j) - last_occ);
-				last_occ = ++j;
-				break ;
-			}
-		}
-	}
-	paths[i] = NULL;
-	return (paths);
-}
-
-char	**separate_paths(char *str)
-{
-	char	**paths;
-	int		count;
-
-	count = chr_in_str(str, ':') + 1;
-	paths = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!paths || count < 1)
-	{
-		perror("Alloc error!");
-		return (NULL);
-	}
-	paths = fill_buffer_paths(paths, count, str);
-	if (!paths)
-	{
-		perror("Error");
-		return (NULL);
-	}
-	return (paths);
-}
-//void	check_cmd()
-//{
-//	char	**paths;
-//	char	*path_var;
-//	int	len;
-//	//if not buildin cmd found
-//	path_var = ft_strdup(getenv("PATH"));
-//}
-
-
-int	main()
-{
-	//check_cmd();
-	char *str = "test:dupa/ale/akscja:okey:bbbb";
-	char **a = separate_paths(str);
+	a = ft_split(str, ':');
+	str = getenv("PATH");
 	if (a == NULL)
 		perror("ERROR!");
-	int i = 0;
 	while (a[i])
+		i++;
+	return (a);
+}
+
+int	external_cmd_exec(char **args, char **paths)
+{
+	int	i;
+
+	i = 0;
+	while (paths[i])
 	{
-		printf("path %d: %s\n", i, a[i]);
+		if (check_for_cmd(args, paths[i]) == 0)
+			return (0);
 		i++;
 	}
-	printf("path %d: %s\n", i, a[i]);
-
-	while (i >= 0)
-	{
-		free(a[i]);
-		i--;
-	}
-	free(a);
-	
-	return (0);
+	return (-1);
 }

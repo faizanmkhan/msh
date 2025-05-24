@@ -71,7 +71,7 @@ int	perform_buildin(char **cmds, char *path)
 		printf("Parent\n");
 }
 
-int	ft_pwd (char **args, t_shell *shell)
+int	ft_pwd(char **args, t_shell *shell)
 {
 	if (args[1])
 	{
@@ -84,12 +84,12 @@ int	ft_pwd (char **args, t_shell *shell)
 
 int	check_is_buildin(char **cmds, t_shell *shell)
 {
-	char *path;
+	char	*path;
 
 	if (!cmds || !cmds[0] || !shell || !shell->current_dir)
 		return (-1);
 	if (ft_strncmp(cmds[0], "echo", 4) == 0)
-		return(ft_echo(cmds));
+		return (ft_echo(cmds));
 	else if (ft_strncmp(cmds[0], "cd", 2) == 0)
 		return (ft_cd(cmds[1], shell));
 	else if (ft_strncmp(cmds[0], "pwd", 3) == 0)
@@ -102,44 +102,9 @@ int	check_is_buildin(char **cmds, t_shell *shell)
 	//	return (perform_buildin(cmds, path));
 	//else if (ft_strncmp(cmds[0], "exit", 4) == 0)
 		//return (kill()); //
+	else if (external_cmd_exec(cmds, get_env_paths()) == 0)
+		return (0);
 	else
 		printf("Command not found\n");
 	return (-1);
-}
-
-#include <stdlib.h>
-int main(int argc, char **argv)
-{
-	int	return_code;
-    char **a;
-    int i;
-	t_shell	*shell;
-
-	return_code = 0;
-	shell = (t_shell *)malloc(sizeof(t_shell));
-	shell->current_dir = (char *)malloc(sizeof(char) * 1024);
-	getcwd(shell->current_dir, 1024);
-	// Skip if there are no arguments besides program name
-    if (argc < 2)
-    {
-        printf("Usage: %s <command> [args...]\n", argv[0]);
-        return (1);
-    }
-
-    // Allocate space for all arguments except program name, plus NULL terminator
-    a = (char **)malloc(sizeof(char *) * argc);
-    if (!a)
-        return (1);
-
-    // Copy argv[1] ... argv[argc-1] into a[0] ... a[argc-2]
-    for (i = 1; i < argc; i++)
-        a[i - 1] = argv[i];
-    a[argc - 1] = NULL; // NULL-terminate
-
-    return_code = check_is_buildin(a, shell);
-
-    free(a);
-    free(shell->current_dir);
-    free(shell);
-    return (return_code);
 }

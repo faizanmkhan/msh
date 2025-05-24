@@ -5,14 +5,20 @@
 # define STD_OUT 1
 # define STD_ERR 2
 
-#include <stdlib.h>
-#include "exec_dir/Libft/srcs/libft.h"
-#include <unistd.h>
-#include <stdio.h>
+# include <stdlib.h>
+# include "exec_dir/Libft/srcs/libft.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
 
-typedef	struct	s_shell
+typedef struct s_shell
 {
 	char	*current_dir;
 }	t_shell;
+
+char	**get_env_paths(void);
+int		external_cmd_exec(char **args, char **paths);
+int		check_for_cmd(char **cmds, char *path);
+int		check_is_buildin(char **cmds, t_shell *shell);
 
 #endif
