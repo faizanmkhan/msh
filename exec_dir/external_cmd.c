@@ -41,13 +41,26 @@ char	**get_env_paths(void)
 	int		i;
 
 	i = 0;
-	a = ft_split(str, ':');
 	str = getenv("PATH");
+	a = ft_split(str, ':');
 	if (a == NULL)
 		perror("ERROR!");
 	while (a[i])
 		i++;
 	return (a);
+}
+
+int	free_paths(char **paths)
+{
+	int	i;
+
+	i = 0;
+	while (paths[i])
+		i++;
+	while (i >= 0)
+		free(paths[i--]);
+	free(paths);
+	return (0);
 }
 
 int	external_cmd_exec(char **args, char **paths)
@@ -58,8 +71,9 @@ int	external_cmd_exec(char **args, char **paths)
 	while (paths[i])
 	{
 		if (check_for_cmd(args, paths[i]) == 0)
-			return (0);
+			return (free_paths(paths));
 		i++;
 	}
+	free_paths(paths);
 	return (-1);
 }
