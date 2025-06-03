@@ -1,20 +1,14 @@
 #include "minishell.h"
 
-
-// Support for commands inside "" like: a.out "echo test 123 elo elo"
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_shell	*shell;
 	char	**args;
 	char	**env_paths;
 	int		return_code;
 	int		i;
+	char	*input;
 
-	if (argc < 2)
-	{
-		printf("Usage: %s <command> [args...]\n", argv[0]);
-		return (1);
-	}
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 		return (1);
@@ -22,16 +16,20 @@ int	main(int argc, char **argv)
 	if (!shell->current_dir)
 		return (free(shell), 1);
 	getcwd(shell->current_dir, 1024);
-	args = malloc(sizeof(char *) * argc);
+	while (1)
+	{
+		input = readline("my_shell> ");
+		if (!input)
+			break ;
+		if (*input)
+			add_history(input);
+		printf("input: %s\n", input);
+		args = ft_split(input, ' ');
+		free(input);
+	}
+	//args = malloc(sizeof(char *) * argc);
 	if (!args)
 		return (free(shell->current_dir), free(shell), 1);
-	i = 1;
-	while (i < argc)
-	{
-		args[i - 1] = argv[i];
-		i++;
-	}
-	args[argc - 1] = NULL;
 	//return_code = check_is_buildin(args, shell);
 	return_code = check_for_operators(args, shell);
 	free(args);

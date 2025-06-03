@@ -113,12 +113,12 @@ int	check_for_operators(char **cmds, t_shell *shell)
 {
 	int		i;
 	int		j;
-	int		first_occ;
-	int		last_occ;
-	char	*found;
+	int		count;
+	int		operator_flag;
 
 	i = 0;
 	j = 0;
+	operator_flag = 0;
 	/*while (cmds[i])
 	{
 		found = ft_strchr(cmds[i], '"');
@@ -130,11 +130,31 @@ int	check_for_operators(char **cmds, t_shell *shell)
 					if (cmds[i][first_occ + j] == '"')
 						if ((first_occ + j) > ft_strchr(cmds[i], '|') - cmds[i])
 	*/
-
+	count = 0;
+	while (cmds[i])
+	{
+		printf("%c\n", cmds[i][j]);
+		if (!cmds[i][j])
+		{
+			i++;
+			j = 0;
+			continue ;
+		}
+		else if ((cmds[i][j] == 34 || cmds [i][j] == 39) && operator_flag == 1)
+		{ printf("count++\n");
+			count++;}
+		else if (cmds[i][j] == '|' && !operator_flag)
+			operator_flag = 1;
+		j++;
+	}
+	printf("op flag: %d\ncount: %d\n", operator_flag, count);
+	if (count % 2 == 0 && count > 0)
+		printf("pipe inside quotes! %d\n", count);
 	/* okey so: 
 	 * check for the operator sign, then check if this operator is in between quotes
 	 * 	1. count all quotes
 	 * 	2. check how many quotes is after operator character
 	 * 		example: 4 quotes, 2 quotes after index of '|', that means '|' isn't soruunded by any quote
-	}
+	}*/
+	return (check_is_buildin(cmds, shell));
 }
