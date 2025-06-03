@@ -101,10 +101,40 @@ int	check_is_buildin(char **cmds, t_shell *shell)
 	//else if (ft_strncmp(cmds[0], "env", 3) == 0)
 	//	return (perform_buildin(cmds, path));
 	//else if (ft_strncmp(cmds[0], "exit", 4) == 0)
-		//return (kill()); //
+		//return (kill(getpid));
 	else if (external_cmd_exec(cmds, get_env_paths()) == 0)
 		return (0);
 	else
 		printf("Command not found\n");
 	return (-1);
+}
+
+int	check_for_operators(char **cmds, t_shell *shell)
+{
+	int		i;
+	int		j;
+	int		first_occ;
+	int		last_occ;
+	char	*found;
+
+	i = 0;
+	j = 0;
+	/*while (cmds[i])
+	{
+		found = ft_strchr(cmds[i], '"');
+		if (found != NULL)
+		{
+			first_occ = found - cmds[i];
+			if (first_occ < ft_strchr(cmds[i], '|') - cmds[i])
+				while (cmds[i][first_occ + j])
+					if (cmds[i][first_occ + j] == '"')
+						if ((first_occ + j) > ft_strchr(cmds[i], '|') - cmds[i])
+	*/
+
+	/* okey so: 
+	 * check for the operator sign, then check if this operator is in between quotes
+	 * 	1. count all quotes
+	 * 	2. check how many quotes is after operator character
+	 * 		example: 4 quotes, 2 quotes after index of '|', that means '|' isn't soruunded by any quote
+	}
 }
