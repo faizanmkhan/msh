@@ -1,0 +1,3 @@
+char **cmds not working, I have to see why isn't it strduping it well, int array seems to work, but leads to this issue with char **;
+
+:

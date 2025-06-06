@@ -1,7 +1,8 @@
 #include "minishell.h"
 
 
-int	pipe_counter(char *str);
+int	*pipe_counter(char *str);
+int	piped_commands(int *pipes, char *input);
 
 int	main(void)
 {
@@ -26,15 +27,22 @@ int	main(void)
 			break ;
 		if (*input)
 			add_history(input);
-		printf("pipes check count: %d\n", pipe_counter(input));
-		args = ft_split(input, ' ');
-		free(input);
-		if (!args)
-			return (free(shell->current_dir), free(shell), 1);
-		return_code = check_for_operators(args, shell);
-		free(args);
-		if (return_code == -2)
-			break ;
+		//printf("pipes check count: %d\n", piped_commands(pipe_counter(input), input));
+		int *pipes = pipe_counter(input);
+		//piped_commands(pipes, input); // test
+		if (pipes != NULL)
+			piped_commands(pipes, input);
+		else
+		{
+			args = ft_split(input, ' ');
+			free(input);
+			if (!args)
+				return (free(shell->current_dir), free(shell), 1);
+			return_code = check_for_operators(args, shell);
+			free(args);
+			if (return_code == -2)
+				break ;
+		}
 	}
 	//args = malloc(sizeof(char *) * argc);
 	free(shell->current_dir);
@@ -55,13 +63,40 @@ char	*check_operator(char *input)
 	pipe_counter(input);
 }
 
-int	pipe_counter(char *str)
+int	piped_commands(int *pipes, char *input)
+{
+	char	**cmds;
+	int		i;
+	int		j;
+	int		len;
+
+	i = 0;
+	j = 0;
+	len = 0;
+	while (pipes[len])
+		len++;
+	printf("len: %d\n", len);
+	cmds = (char **)malloc(sizeof(char *) * (len + 2));
+	//cmds[i + 2] = 0;
+	//i = 0;
+	while (i < len)
+	{
+		cmds[i] = ft_substr(input, pipes[i], pipes[i + 1] - pipes[i]);
+		printf("string: %s\n", cmds[i]);
+		i++;
+	}
+	cmds[i] = NULL;
+	return (i);
+}
+
+int	*pipe_counter(char *str)
 {
 	int	i;
 	int	occur_c;
 	int	valid_pipes;
 	int	s_quotes_c;
 	int	d_quotes_c;
+	int	*pipes_index;
 
 	s_quotes_c = 0;
 	d_quotes_c = 0;
@@ -80,5 +115,28 @@ int	pipe_counter(char *str)
 		}
 		i++;	
 	}
-	return (valid_pipes);
+	if (valid_pipes == 0)
+		return (NULL);
+	pipes_index = (int *)malloc(sizeof(int) * (valid_pipes + 3));
+	pipes_index[0] = 0;
+	i = 0;
+	s_quotes_c = 0;
+	d_quotes_c = 0;
+	int j = 1;
+	while (str[i])
+	{
+		if (str[i] == 34)
+			d_quotes_c++;
+		else if (str[i] == 39)
+			s_quotes_c++;
+		else if (str[i] == '|')
+		{
+			if (d_quotes_c % 2 == 0 && s_quotes_c % 2 == 0)
+				pipes_index[j++] = i;
+		}
+		i++;	
+	}
+	pipes_index[j++] = i;
+	pipes_index[j] = 0;
+	return (pipes_index);
 }
