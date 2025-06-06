@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+
+int	pipe_counter(char *str);
+
 int	main(void)
 {
 	t_shell	*shell;
@@ -23,17 +26,59 @@ int	main(void)
 			break ;
 		if (*input)
 			add_history(input);
-		printf("input: %s\n", input);
+		printf("pipes check count: %d\n", pipe_counter(input));
 		args = ft_split(input, ' ');
 		free(input);
+		if (!args)
+			return (free(shell->current_dir), free(shell), 1);
+		return_code = check_for_operators(args, shell);
+		free(args);
+		if (return_code == -2)
+			break ;
 	}
 	//args = malloc(sizeof(char *) * argc);
-	if (!args)
-		return (free(shell->current_dir), free(shell), 1);
-	//return_code = check_is_buildin(args, shell);
-	return_code = check_for_operators(args, shell);
-	free(args);
 	free(shell->current_dir);
 	free(shell);
+	if (return_code == -2)
+		return(0);
 	return (return_code);
+}
+
+char	*check_operator(char *input)
+{
+	//count pipes
+	//check for input redirection <
+	//check for output redirection >, >>
+	//check for heredoc <<XYZ
+	//check for '$' characters
+	
+	pipe_counter(input);
+}
+
+int	pipe_counter(char *str)
+{
+	int	i;
+	int	occur_c;
+	int	valid_pipes;
+	int	s_quotes_c;
+	int	d_quotes_c;
+
+	s_quotes_c = 0;
+	d_quotes_c = 0;
+	i = 0;
+	valid_pipes = 0;
+	while (str[i])
+	{
+		if (str[i] == 34)
+			d_quotes_c++;
+		else if (str[i] == 39)
+			s_quotes_c++;
+		else if (str[i] == '|')
+		{
+			if (d_quotes_c % 2 == 0 && s_quotes_c % 2 == 0)
+				valid_pipes++;
+		}
+		i++;	
+	}
+	return (valid_pipes);
 }

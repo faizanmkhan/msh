@@ -100,8 +100,8 @@ int	check_is_buildin(char **cmds, t_shell *shell)
 	//	return (perform_buildin(cmds, path));
 	//else if (ft_strncmp(cmds[0], "env", 3) == 0)
 	//	return (perform_buildin(cmds, path));
-	//else if (ft_strncmp(cmds[0], "exit", 4) == 0)
-		//return (kill(getpid));
+	else if (ft_strncmp(cmds[0], "exit", 4) == 0)
+		return (-2);
 	else if (external_cmd_exec(cmds, get_env_paths()) == 0)
 		return (0);
 	else
@@ -113,27 +113,19 @@ int	check_for_operators(char **cmds, t_shell *shell)
 {
 	int		i;
 	int		j;
-	int		count;
 	int		operator_flag;
+	int		left_occ;
+	int		right_occ;
+	int		pipe_arg;
 
+	left_occ = 0;
+	right_occ = 0;
 	i = 0;
 	j = 0;
 	operator_flag = 0;
-	/*while (cmds[i])
-	{
-		found = ft_strchr(cmds[i], '"');
-		if (found != NULL)
-		{
-			first_occ = found - cmds[i];
-			if (first_occ < ft_strchr(cmds[i], '|') - cmds[i])
-				while (cmds[i][first_occ + j])
-					if (cmds[i][first_occ + j] == '"')
-						if ((first_occ + j) > ft_strchr(cmds[i], '|') - cmds[i])
-	*/
-	count = 0;
+	//count = 0;
 	while (cmds[i])
 	{
-		printf("%c\n", cmds[i][j]);
 		if (!cmds[i][j])
 		{
 			i++;
@@ -141,20 +133,19 @@ int	check_for_operators(char **cmds, t_shell *shell)
 			continue ;
 		}
 		else if ((cmds[i][j] == 34 || cmds [i][j] == 39) && operator_flag == 1)
-		{ printf("count++\n");
-			count++;}
+			right_occ++;
+		else if ((cmds[i][j] == 34 || cmds [i][j] == 39) && operator_flag == 0)
+			left_occ++;
 		else if (cmds[i][j] == '|' && !operator_flag)
+		{
 			operator_flag = 1;
+			pipe_arg = i;
+		}
 		j++;
 	}
-	printf("op flag: %d\ncount: %d\n", operator_flag, count);
-	if (count % 2 == 0 && count > 0)
-		printf("pipe inside quotes! %d\n", count);
-	/* okey so: 
-	 * check for the operator sign, then check if this operator is in between quotes
-	 * 	1. count all quotes
-	 * 	2. check how many quotes is after operator character
-	 * 		example: 4 quotes, 2 quotes after index of '|', that means '|' isn't soruunded by any quote
-	}*/
+	if ((left_occ + right_occ) % 2 != 0)
+		return (printf("ERROR: Not closed quote! [IMPLEMENT dquote? heredoc-like thing]\n"));
+	if (left_occ % 2 == 0 && operator_flag > 0)
+		printf("pipe detected! %d\n", left_occ + right_occ);
 	return (check_is_buildin(cmds, shell));
 }
