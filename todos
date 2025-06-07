@@ -1,3 +1,6 @@
-char **cmds not working, I have to see why isn't it strduping it well, int array seems to work, but leads to this issue with char **;
-
+[] wokrking pipes
+[] integration with the t_cmd struct.
+[] redirection
+[] heredoc
+[] env vars expanding
 :

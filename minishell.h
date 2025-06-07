@@ -23,5 +23,7 @@ int		external_cmd_exec(char **args, char **paths);
 int		check_for_cmd(char **cmds, char *path);
 int		check_is_buildin(char **cmds, t_shell *shell);
 int		check_for_operators(char **cmds, t_shell *shell);
-
+int		piped_commands(int *pipes, char *input);
+int		*pipe_counter(char *str);
+char		*clear_str(char *str);
 #endif
