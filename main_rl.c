@@ -72,17 +72,20 @@ int	piped_commands(int *pipes, char *input)
 
 	i = 0;
 	j = 0;
-	len = 0;
+	len = 1;
 	while (pipes[len])
 		len++;
-	printf("len: %d\n", len);
+	//printf("len: %d, pipe 2: %d\n", len, pipes[2]);
 	cmds = (char **)malloc(sizeof(char *) * (len + 2));
 	//cmds[i + 2] = 0;
 	//i = 0;
 	while (i < len)
 	{
-		cmds[i] = ft_substr(input, pipes[i], pipes[i + 1] - pipes[i]);
-		printf("string: %s\n", cmds[i]);
+		if (i == 0)
+			cmds[i] = ft_substr(input, pipes[i], pipes[i + 1] - pipes[i]);
+		else	
+			cmds[i] = ft_substr(input, pipes[i] + 1, pipes[i + 1] - pipes[i] - 1);
+		printf("%s\n", cmds[i]);
 		i++;
 	}
 	cmds[i] = NULL;
