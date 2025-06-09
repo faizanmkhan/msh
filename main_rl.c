@@ -61,7 +61,7 @@ char	*check_operator(char *input)
 	pipe_counter(input);
 }
 
-int	mem_cleaner(char **args, int *pipes, t_shell *shell, )
+int	mem_cleaner(char **args, int *pipes, t_shell *shell)
 {
 	int	i;
 

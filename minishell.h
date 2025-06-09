@@ -18,6 +18,16 @@ typedef struct s_shell
 	char	*current_dir;
 }	t_shell;
 
+typedef struct s_cmd
+{
+	char			**args;
+	char			*input_file;
+	char			*output_file;
+	int				append_mode;
+	char			*heredoc_delimiter;
+	struct s_cmd	*next;
+} t_cmd;
+
 char	**get_env_paths(void);
 int		external_cmd_exec(char **args, char **paths);
 int		check_for_cmd(char **cmds, char *path);
