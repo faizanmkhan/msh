@@ -14,6 +14,7 @@ int	ft_echo(char **args)
 
 	i = 1;
 	n_flag = 0;
+	//check_for_dollar(args);
 	if (!args)
 		return (-1);
 	else if (!args[1])
@@ -33,9 +34,9 @@ int	ft_echo(char **args)
 		else if (n_flag == 0 && i > 1)
 			ft_putchar_fd(' ', 1);
 		if (n_flag == 0 && !args[i + 1])
-			ft_putendl_fd(args[i], 1);
+			ft_putendl(args[i]);
 		else
-			ft_putstr_fd(args[i], 1);
+			ft_putstr(args[i]);
 		i++;
 	}
 	return (0);

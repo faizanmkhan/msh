@@ -12,6 +12,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <sys/wait.h>
+# include "exec_dir/gnl/get_next_line.h"
 
 typedef struct s_shell
 {
@@ -36,4 +38,11 @@ int		check_for_operators(char **cmds, t_shell *shell);
 int		piped_commands(int *pipes, char *input);
 int		*pipe_counter(char *str);
 char		*clear_str(char *str);
+int		check_cmd(t_cmd *cmd, t_shell *shell); 
+int		pipe_loop(t_cmd *cmds, t_shell *shell);
+int	input_redir(t_cmd *cmd, t_shell *shell);
+int	output_redir(t_cmd *cmd, t_shell *shell, int append_mode);
+void	ft_putstr(char *s);
+void	ft_putendl(char *s);
+
 #endif
