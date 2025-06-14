@@ -1,14 +1,13 @@
 #include "../minishell.h"
 
-int	expand_env(char *s, int	fd)
+int	expand_env(char *s, int fd)
 {
 	char	*env;
 	char	*temp;
 
 	//TODO If double dollar "$$" print getpid, also fix reading envs from string where $ right in front.
-
 	if (s[0] != '$')
-		return(-1);
+		return (-1);
 	env = ft_substr(s, 1, ft_strlen(s) - 1);
 	temp = getenv(env);
 	free(env);
@@ -40,4 +39,3 @@ void	ft_putendl(char *s)
 		write(1, s, len);
 	write(1, "\n", 1);
 }
-

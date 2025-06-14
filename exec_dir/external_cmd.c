@@ -23,13 +23,7 @@ int	check_for_cmd(char **cmds, char *path)
 		return (-1);
 	}
 	else if (pid == 0)
-	{
 		execv(complete_path, cmds);
-	}
-	//else
-	//{
-		//
-	//}
 	free(complete_path);
 	return (0);
 }

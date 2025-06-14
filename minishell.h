@@ -20,6 +20,7 @@ typedef struct s_shell
 	char	*current_dir;
 	int	saved_stdin;
 	int	saved_stdout;
+	int	cmd_index;
 }	t_shell;
 
 typedef struct s_cmd
@@ -47,5 +48,8 @@ int	output_redir(t_cmd *cmd, t_shell *shell, int append_mode);
 void	ft_putstr(char *s);
 void	ft_putendl(char *s);
 int	reset_redir(t_shell *shell);
-
+void	echo_printer(char **args, int n_flag, int i);
+int	ft_echo(char **args);
+int	ft_cd(char *path, t_shell *shell);
+int	ft_pwd(char **args, t_shell *shell);
 #endif
