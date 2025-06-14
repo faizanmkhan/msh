@@ -12,16 +12,11 @@ int	reset_redir(t_shell *shell)
 		return (-1);
 }
 
-int	input_redir(t_cmd *cmd, t_shell *shell, char *file_path)
+int	input_redir(t_cmd *cmd, t_shell *shell)
 {
 	int		fd;
-	char	*path;
 
-	if (file_path == NULL)
-		path = cmd->input_file;
-	else
-		path = file_path;
-	fd = open(path, O_RDONLY);
+	fd = open(cmd->input_file, O_RDONLY);
 	if (fd < 0)
 		return(-1); //ERROR
 	dup2(fd, STD_IN);
@@ -29,19 +24,14 @@ int	input_redir(t_cmd *cmd, t_shell *shell, char *file_path)
 	return (0);
 }
 
-int	output_redir(t_cmd *cmd, t_shell *shell, char *file_path, int append_mode)
+int	output_redir(t_cmd *cmd, t_shell *shell, int append_mode)
 {
 	int		fd;
-	char	*path;
 
-	if (file_path == NULL)
-		path = cmd->output_file;
-	else
-		path = file_path;
 	if (append_mode == 0)
-		fd = open(path, O_CREAT | O_RDWR, 0644);	
+		fd = open(cmd->output_file, O_CREAT | O_RDWR, 0644);	
 	else
-		fd = open(path, O_CREAT | O_APPEND | O_RDWR, 0644);
+		fd = open(cmd->output_file, O_CREAT | O_APPEND | O_RDWR, 0644);
 	if (fd < 0)
 		return (-1); //ERROR
 	dup2(fd, STD_OUT);
