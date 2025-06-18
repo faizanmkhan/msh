@@ -18,8 +18,8 @@
 typedef struct s_shell
 {
 	char	*current_dir;
-	int	saved_stdin;
-	int	saved_stdout;
+	int	saved_stdin; //fd to have backup to stdin after redirection
+	int	saved_stdout; //same here
 	int	cmd_index;
 }	t_shell;
 

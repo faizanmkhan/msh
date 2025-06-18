@@ -7,6 +7,7 @@ int	reset_redir(t_shell *shell)
 
 	in = dup2(shell->saved_stdin, STD_IN);
 	out = dup2(shell->saved_stdout, STD_OUT);
+	//reset redirection to backuped STD IN/OUT
 	if (in > 0 && out > 0)
 		return (0);
 	else
@@ -29,7 +30,7 @@ int	output_redir(t_cmd *cmd, t_shell *shell, int append_mode)
 {
 	int		fd;
 
-	if (append_mode == 0)
+	if (append_mode == 0) //if append mode, just open file with different flag
 		fd = open(cmd->output_file, O_CREAT | O_RDWR, 0644);
 	else
 		fd = open(cmd->output_file, O_CREAT | O_APPEND | O_RDWR, 0644);

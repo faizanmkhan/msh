@@ -135,7 +135,6 @@ int main(void)
 
 		check_cmd(head, shell);
 		reset_redir(shell);
-		unlink(".f_temp");
 		free_cmds(head);
 		free(line);
 	}

@@ -58,7 +58,6 @@ int	ft_cd(char *path, t_shell *shell)
 	}
 	getcwd(cwd, 1024);
 	return (0);
-	//TODO NEEDS FIX TO ADJUST FOR SHELL
 }
 
 int	ft_pwd(char **args, t_shell *shell)
