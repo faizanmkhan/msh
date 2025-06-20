@@ -7,7 +7,10 @@ void	init_shell_data(t_shell_data *myshell, char **envp)
 	
 	myshell->exit_status = 0;
 	myshell->envp = NULL;
-	myshell->myenv = NULL;
+	myshell->pid = -1;
+	myshell->head_cmd = NULL;
+	myshell->head_token = NULL;
+	myshell->shell_env = NULL;
 	i = 0;
 	while (envp[i])
 	{
@@ -38,7 +41,7 @@ void	core_shell_loop(t_shell_data *myshell)
 		}
 		if (input)
 		{
-			process_input(myshell, input);
+			managing_input(myshell, input);
 		}
 		free(input);
 	}

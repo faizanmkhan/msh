@@ -27,11 +27,11 @@ void append_env_vars(t_shell_data *myshell, t_env_data *sh_env)
 {
 	t_env_data	*current;
 
-	if(!myshell->myenv)
-		myshell->myenv = sh_env;
+	if(!myshell->shell_env)
+		myshell->shell_env = sh_env;
 	else
 	{
-		current = myshell->myenv;
+		current = myshell->shell_env;
 		while (current->next)
 			current = current->next;
 		current->next = sh_env;

@@ -56,7 +56,7 @@ typedef struct s_shell_data
 	pid_t		pid;
 	t_cmd		*head_cmd;
 	t_token		*head_token;
-	t_env_data	*myenv;
+	t_env_data	*shell_env;
 } t_shell_data;
 
 int	is_metachar(char c);
@@ -66,7 +66,7 @@ t_env_data *parse_env_var(char *env_str);
 void append_env_vars(t_shell_data *myshell, t_env_data *sh_env);
 void cleanup_shell(t_shell_data *shell);
 void	core_shell_loop(t_shell_data *myshell);
-void 	process_input(t_shell_data *myshell, char *input);
+void 	managing_input(t_shell_data *myshell, char *input);
 t_token	*input_tokenaizer(char *input_str);
 t_token	*handle_quote(char *input, int *i, char quote);
 char	*extract_string(char *input, int *i);
@@ -74,4 +74,6 @@ t_token	*create_token(char *data, t_tok_type type);
 void	append_token(t_token **head, t_token **current, t_token *new_token);
 t_token	*handle_metachar(char *input, int *i);
 t_token	*handle_word(char *input, int *i);
+void	free_token(t_token *tokens);
+t_cmd	*create_cmd_with_token(t_shell_data *myshell);
 #endif

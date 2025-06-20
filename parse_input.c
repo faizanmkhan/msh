@@ -1,29 +1,19 @@
 #include "myshell.h"
 
-void process_input(t_shell_data *myshell, char *input)
+void managing_input(t_shell_data *myshell, char *input)
 {
 	(void)myshell;
 
-	t_token	*token;
-	//t_cmd	*commands;
-	
 	if(ft_isprint(*input))
 	{
 		if (!isspace(*input))
 			add_history(input);
 	}
-	token = input_tokenaizer(input);
-	int i = 0;
-	t_token *current = token;
-	while (current)
-	{
-		printf("token %d : %s, type %d\n", i, current->value, current->type);
-		i++;
-		current = current->next;
-	}
+	myshell->head_token = input_tokenaizer(input);
+	myshell->head_cmd = create_cmd_with_token(myshell);
+	// test
 	
 }
-
 t_token	*input_tokenaizer(char *input_str)
 {
 	int i;
