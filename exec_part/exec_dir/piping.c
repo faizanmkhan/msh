@@ -13,6 +13,8 @@ void	fork_child(int *pipefd, int prev_pipe_read, t_cmd *cmd, t_shell_data *shell
 		dup2(pipefd[1], STD_OUT);
 		close(pipefd[1]);
 	}
+	else if (!cmd->next)
+		output_redir(cmd, cmd->append_mode);
 	check_is_buildin(cmd->args, shell); //check_is_buildin checks also for external cmds if no buildin matches, runs execv() so it replaces this procces and on succes will end o this line
 	exit (EXIT_FAILURE); //otherwise exit with the cmd running failure
 }

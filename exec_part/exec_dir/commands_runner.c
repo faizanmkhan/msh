@@ -23,6 +23,6 @@ int	check_is_buildin(char **args, t_shell_data *shell)
 	else if (external_cmd_exec(args, get_env_paths()) == 0) //run external cmd execution
 		return (0);
 	else
-		printf("Command not found\n");
+		printf("Command not found: %s\n", args[0]);
 	return (-1);
 }

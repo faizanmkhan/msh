@@ -17,7 +17,7 @@ int	check_cmd(t_cmd *cmd, t_shell_data *shell) //cmd struct for args etc.
 {
 	int	cmds;
 
-	printf("cmd: %s\n", cmd->args[0]);
+	//printf("in file: %s, out file: %s\n", cmd->in_file, cmd->out_file);
 	if (cmd->in_file)
 	{
 		input_redir(cmd); //basically dup2 input

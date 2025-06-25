@@ -19,6 +19,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(OBJS) -L./libft -lft -o $(NAME) $(LDFLAGS)
+	@clear
 
 .o:.c
 	$(CC) $(CFLAGS) -c $< -o $@

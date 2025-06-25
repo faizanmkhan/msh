@@ -43,6 +43,8 @@ void	core_shell_loop(t_shell_data *myshell)
 		{
 			managing_input(myshell, input);
 			check_cmd(myshell->head_cmd, myshell);
+			reset_redir(myshell);
+			//free_cmds()
 		}
 		free(input);
 	}

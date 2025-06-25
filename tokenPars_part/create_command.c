@@ -66,7 +66,7 @@ char	*manage_env(char *s)
 
 	sign_pos = ft_chr_pos(s, 0, '$');
 	if (sign_pos == -1)
-		return (NULL);
+		return (s);
 	bef_s = ft_substr(s, 0, sign_pos);
 	space_i = ft_chr_pos(s, sign_pos, ' ');
 	if (space_i == -1)
@@ -108,7 +108,6 @@ void	handle_argument_word_expand(t_cmd	*cmd, t_token *token)
 		free (cmd->args);
 	}
 	new_arg[count] = final_arg;
-	printf("test: %s\n", new_arg[count]);
 	new_arg[count + 1] = 0;
 	cmd->args = new_arg;
 }
