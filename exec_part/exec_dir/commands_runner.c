@@ -1,17 +1,17 @@
-#include "../minishell.h"
+#include "../../tokenPars_part/myshell.h"
 
-int	check_is_buildin(char **args, t_shell *shell)
+int	check_is_buildin(char **args, t_shell_data *shell)
 {
-	char	*path;
+	//char	*path;
 
-	if (!args || !args[0] || !shell || !shell->current_dir) //ERROR check
+	if (!args || !args[0] || !shell) //ERROR check
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 0)
 		return (ft_echo(args));
 	else if (ft_strncmp(args[0], "cd", 2) == 0)
-		return (ft_cd(args[1], shell));
+		return (ft_cd(args[1]));
 	else if (ft_strncmp(args[0], "pwd", 3) == 0)
-		return (ft_pwd(args, shell));
+		return (ft_pwd(args));
 	//else if (ft_strncmp(args[0], "export", 6) == 0)
 	//	return (perform_buildin(args, path));
 	//else if (ft_strncmp(args[0], "unset", 5) == 0)

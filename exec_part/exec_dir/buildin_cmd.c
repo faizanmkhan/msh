@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../tokenPars_part/myshell.h"
 
 //TODOS
 //2. Strict error handling 
@@ -43,30 +43,34 @@ int	ft_echo(char **args)
 	return (0);
 }
 
-int	ft_cd(char *path, t_shell *shell)
+int	ft_cd(char *path)
 {
-	char	*cwd;
+	//char	*cwd;
 
-	cwd = shell->current_dir;
+	//cwd = shell->current_dir;
 	if (!path)
 		chdir(getenv("HOME"));
 	else if (chdir(path) == -1)
 	{
 		ft_putstr_fd("cd: no such file or directory: ", STD_ERR);
 		ft_putendl_fd(path, STD_ERR);
-		return (-1);
+		return (-1); //FIX
 	}
-	getcwd(cwd, 1024);
+	//getcwd(cwd, 1024);
 	return (0);
 }
 
-int	ft_pwd(char **args, t_shell *shell)
+int	ft_pwd(char **args)
 {
+	char	*cwd;
+
+	cwd = NULL;
 	if (args[1])
 	{
 		ft_putendl_fd("pwd: too many arguments", STD_ERR);
 		return (-1);
 	}
-	ft_putendl_fd(shell->current_dir, 1);
+	//ft_putendl_fd(shell->current_dir, 1);
+	ft_putendl_fd(getcwd(cwd, 1024), 1);
 	return (0);
 }

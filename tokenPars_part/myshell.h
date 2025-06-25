@@ -7,7 +7,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 # include "./libft/libft.h"
+
+# define STD_IN 0
+# define STD_OUT 1
+# define STD_ERR 2
 
 extern int g_signal;
 
@@ -53,6 +59,9 @@ typedef struct s_shell_data
 {
 	int			exit_status;
 	char		**envp;
+	int			cmd_index;
+	int			saved_stdin;
+	int			saved_stdout;
 	pid_t		pid;
 	t_cmd		*head_cmd;
 	t_token		*head_token;
@@ -76,4 +85,25 @@ t_token	*handle_metachar(char *input, int *i);
 t_token	*handle_word(char *input, int *i);
 void	free_token(t_token *tokens);
 t_cmd	*create_cmd_with_token(t_shell_data *myshell);
+
+//exec
+char	**get_env_paths(void);
+int		external_cmd_exec(char **args, char **paths);
+int		check_for_cmd(char **cmds, char *path);
+int		check_is_buildin(char **cmds, t_shell_data *shell);
+int		check_for_operators(char **cmds, t_shell_data *shell);
+int		piped_commands(int *pipes, char *input);
+int		*pipe_counter(char *str);
+char		*clear_str(char *str);
+int		check_cmd(t_cmd *cmd, t_shell_data *shell); 
+int		pipe_loop(t_cmd *cmds, t_shell_data *shell);
+int	input_redir(t_cmd *cmd);
+int	output_redir(t_cmd *cmd, int append_mode);
+void	ft_putstr(char *s);
+void	ft_putendl(char *s);
+int	reset_redir(t_shell_data *shell);
+void	echo_printer(char **args, int n_flag, int i);
+int	ft_echo(char **args);
+int	ft_cd(char *path);
+int	ft_pwd(char **args);
 #endif

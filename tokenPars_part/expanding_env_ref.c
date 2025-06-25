@@ -5,7 +5,7 @@ static int is_var_char(char c)
     return isalnum(c) || c == '_';
 }
 
-static char *expand_exit_status(t_shell *shell, char *result, int *j)
+static char *expand_exit_status(t_shell_data *shell, char *result, int *j)
 {
     char exit_str[16];
     sprintf(exit_str, "%d", shell->exit_status);
@@ -14,7 +14,7 @@ static char *expand_exit_status(t_shell *shell, char *result, int *j)
     return result;
 }
 
-static char *expand_env_variable(t_shell *shell, const char *str, int *i, char *result, int *j)
+static char *expand_env_variable(t_shell_data *shell, const char *str, int *i, char *result, int *j)
 {
     int start = ++(*i);
     while (str[*i] && is_var_char(str[*i]))
@@ -34,7 +34,7 @@ static char *expand_env_variable(t_shell *shell, const char *str, int *i, char *
     return result;
 }
 
-char *expand_variables(t_shell *shell, char *str)
+char *expand_variables(t_shell_data *shell, char *str)
 {
     if (!str || !strchr(str, '$'))
         return ft_strdup(str);

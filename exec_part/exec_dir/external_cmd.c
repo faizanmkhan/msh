@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../tokenPars_part/myshell.h"
 
 int	check_for_cmd(char **args, char *path)
 {
@@ -16,7 +16,7 @@ int	check_for_cmd(char **args, char *path)
 		free(complete_path);
 		return (-1);
 	}
-	printf("path: %s\n", complete_path);
+	//printf("path: %s\n", complete_path);
 	pid = fork();
 	if (pid < 0)
 	{

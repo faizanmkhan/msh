@@ -1,6 +1,6 @@
-#include "../minishell.h"
+#include "../../tokenPars_part/myshell.h"
 
-int	reset_redir(t_shell *shell)
+int	reset_redir(t_shell_data *shell)
 {
 	int	in;
 	int	out;
@@ -14,11 +14,11 @@ int	reset_redir(t_shell *shell)
 		return (-1);
 }
 
-int	input_redir(t_cmd *cmd, t_shell *shell)
+int	input_redir(t_cmd *cmd)
 {
 	int		fd;
 
-	fd = open(cmd->input_file, O_RDONLY);
+	fd = open(cmd->in_file, O_RDONLY);
 	if (fd < 0)
 		return (-1); //ERROR
 	dup2(fd, STD_IN);
@@ -26,21 +26,16 @@ int	input_redir(t_cmd *cmd, t_shell *shell)
 	return (0);
 }
 
-int	output_redir(t_cmd *cmd, t_shell *shell, int append_mode)
+int	output_redir(t_cmd *cmd, int append_mode)
 {
 	int		fd;
-
 	if (append_mode == 0) //if append mode, just open file with different flag
-		fd = open(cmd->output_file, O_CREAT | O_RDWR, 0644);
+		fd = open(cmd->out_file, O_CREAT | O_RDWR, 0644);
 	else
-		fd = open(cmd->output_file, O_CREAT | O_APPEND | O_RDWR, 0644);
+		fd = open(cmd->out_file, O_CREAT | O_APPEND | O_RDWR, 0644);
 	if (fd < 0)
 		return (-1); //ERROR
 	dup2(fd, STD_OUT);
 	close(fd);
 	return (0);
-}
-
-int	heredoc_run(char *delimiter)
-{
 }

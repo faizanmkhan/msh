@@ -1,6 +1,6 @@
-#include "../minishell.h"
+#include "../../tokenPars_part/myshell.h"
 
-void	fork_child(int *pipefd, int prev_pipe_read, t_cmd *cmd, t_shell *shell)
+void	fork_child(int *pipefd, int prev_pipe_read, t_cmd *cmd, t_shell_data *shell)
 {
 	if (shell->cmd_index != 0) //if this cmd isn't 1st cmd redirect INPUT to the last cmd output, otherwise ignore check and read from normal STDIN
 	{
@@ -18,7 +18,7 @@ void	fork_child(int *pipefd, int prev_pipe_read, t_cmd *cmd, t_shell *shell)
 }
 
 t_cmd	*fork_parent(int *pipefd, t_cmd *cmd,
-		int *prev_pipe_read, t_shell *shell)
+		int *prev_pipe_read, t_shell_data *shell)
 {
 	if (shell->cmd_index != 0) //if not the 1st cmd
 		close(*prev_pipe_read);
@@ -33,7 +33,7 @@ t_cmd	*fork_parent(int *pipefd, t_cmd *cmd,
 	return (cmd->next);// this is basically increment in the loop that is based on checking if cmd isn't NULL
 }
 
-int	pipe_loop(t_cmd *cmd, t_shell *shell)
+int	pipe_loop(t_cmd *cmd, t_shell_data *shell)
 {
 	int		pipefd[2];
 	int		prev_pipe_read;

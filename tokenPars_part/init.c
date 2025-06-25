@@ -42,6 +42,7 @@ void	core_shell_loop(t_shell_data *myshell)
 		if (input)
 		{
 			managing_input(myshell, input);
+			check_cmd(myshell->head_cmd, myshell);
 		}
 		free(input);
 	}

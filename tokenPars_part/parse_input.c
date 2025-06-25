@@ -12,7 +12,7 @@ void managing_input(t_shell_data *myshell, char *input)
 	myshell->head_token = input_tokenaizer(input);
 	myshell->head_cmd = create_cmd_with_token(myshell);
 	// test
-	
+		
 }
 t_token	*input_tokenaizer(char *input_str)
 {

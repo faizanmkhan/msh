@@ -108,6 +108,7 @@ void	handle_argument_word_expand(t_cmd	*cmd, t_token *token)
 		free (cmd->args);
 	}
 	new_arg[count] = final_arg;
+	printf("test: %s\n", new_arg[count]);
 	new_arg[count + 1] = 0;
 	cmd->args = new_arg;
 }

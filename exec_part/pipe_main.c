@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../tokenPars_part/myshell.h""
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,7 +82,7 @@ void free_cmds(t_cmd *head)
 
 int main(void)
 {
-	t_shell *shell = malloc(sizeof(t_shell));
+	t_shell_data *shell = malloc(sizeof(t_shell_data));
 	if (!shell)
 		return 1;
 
@@ -145,7 +145,7 @@ int main(void)
 }
 
 
-/*#include "minishell.h"
+/*#include "../../tokenPars_part/myshell.h""
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -209,7 +209,7 @@ int main(void)
 {
 	//int	saved_stdin;
 	//int	saved_stdout;
-    t_shell *shell = malloc(sizeof(t_shell));
+    t_shell_data *shell = malloc(sizeof(t_shell_data));
     if (!shell)
         return 1;
 

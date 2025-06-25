@@ -1,8 +1,8 @@
-#include "../minishell.h"
+#include "../../tokenPars_part/myshell.h"
 
 int	ft_chr_pos(char *s, int start, char c);
 
-int	print_env(char *env_s)
+/*int	print_env(char *env_s)
 {
 	int		pid;
 	char	*new_str;
@@ -34,7 +34,7 @@ int	manage_env(char *s)
 	int		space_i;
 	char	*bef_s;
 	char	*env_s;
-	char	*env_big;
+	//char	*env_big;
 
 	sign_pos = ft_chr_pos(s, 0, '$');//get $ index
 	if (sign_pos == -1)
@@ -50,7 +50,6 @@ int	manage_env(char *s)
 	free(env_s);
 	return (0);
 }
-
 int	ft_chr_pos(char *s, int start, char c) //returns character index, checks in string from int start
 {
 	while (s[start])
@@ -61,13 +60,13 @@ int	ft_chr_pos(char *s, int start, char c) //returns character index, checks in 
 	}
 	return (-1);
 }
-
+*/
 void	ft_putstr(char *s) //print str without \n and expand env var $
 {
 	int	len;
 
-	if (manage_env(s) == 0)
-		return ;
+	//if (manage_env(s) == 0)
+		//return ;
 	len = ft_strlen(s);
 	write(1, s, len);
 }
@@ -76,11 +75,11 @@ void	ft_putendl(char *s) //print string with \n and expand enviromental variable
 {
 	int		len;
 
-	if (manage_env(s) == 0)
-	{
-		write(1, "\n", 1);
-		return ;
-	}
+	//if (manage_env(s) == 0)
+	//{
+	//	write(1, "\n", 1);
+	//	return ;
+	//}
 	len = ft_strlen(s);
 	write(1, s, len);
 	write(1, "\n", 1);
