@@ -14,6 +14,7 @@ void managing_input(t_shell_data *myshell, char *input)
 	// test
 	
 }
+
 t_token	*input_tokenaizer(char *input_str)
 {
 	int i;

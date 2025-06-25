@@ -18,6 +18,38 @@ static t_cmd	*init_command(void)
 
 void	handle_argument_word(t_cmd	*cmd, t_token *token)
 {
+
+	int		count;
+	char	**new_arg;
+	char	*final_arg;
+	int		i;
+	
+	final_arg = ft_strdup(token->value);
+	count = 0;
+	if (cmd->args)
+	{
+		while (cmd->args[count])
+			count++;
+	}
+	new_arg = malloc(sizeof(char *) * (count + 2));
+	if(cmd->args)
+	{
+		i = 0;
+		while (i < count)
+		{
+			new_arg[i] = cmd->args[i];
+			i++;
+		}
+		free (cmd->args);
+	}
+	new_arg[count] = final_arg;
+	new_arg[count + 1] = 0;
+	cmd->args = new_arg;
+}
+
+void	handle_argument_word_expand(t_cmd	*cmd, t_token *token)
+{
+
 	int		count;
 	char	**new_arg;
 	char	*final_arg;
@@ -102,9 +134,9 @@ t_cmd	*create_cmd_with_token(t_shell_data *myshell)
 	while(token)
 	{
 		if (token->type == TOK_WORD || token->type == TOK_DQUOTE)
+				handle_argument_word_expand(current, token); // need to code
+		else if (token->type == TOK_SQUOTE)
 				handle_argument_word(current, token);
-		//else if (token->type == TOK_SQUOTE)
-				//handle_sgl_quote(current, token); // need
 		else if (token->type == TOK_PIPE)
 				handle_pipe(&current); 
 		else if (token->type == TOK_IN_DIRECT)
