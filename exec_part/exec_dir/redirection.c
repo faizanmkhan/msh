@@ -30,7 +30,7 @@ int	output_redir(t_cmd *cmd, int append_mode)
 {
 	int		fd;
 	if (append_mode == 0) //if append mode, just open file with different flag
-		fd = open(cmd->out_file, O_CREAT | O_RDWR, 0644);
+		fd = open(cmd->out_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	else
 		fd = open(cmd->out_file, O_CREAT | O_APPEND | O_RDWR, 0644);
 	if (fd < 0)
