@@ -64,6 +64,7 @@ char	*manage_env(char *s)
 	char	*final_str;
 	char	*exp_env;
 
+	final_str = NULL;
 	sign_pos = ft_chr_pos(s, 0, '$');
 	if (sign_pos == -1)
 		return (s);
@@ -74,8 +75,7 @@ char	*manage_env(char *s)
 	env_s = ft_substr(s, sign_pos + 1, space_i - sign_pos - 1);
 	exp_env = print_env(env_s);//
 	free(env_s);
-	if (exp_env)
-		final_str = ft_strjoin(bef_s, exp_env);
+	final_str = ft_strjoin(bef_s, exp_env);
 	free(bef_s);
 	if (!final_str)
 		return (NULL);
@@ -198,19 +198,19 @@ t_cmd	*create_cmd_with_token(t_shell_data *myshell)
 	while(token)
 	{
 		if (token->type == TOK_WORD || token->type == TOK_DQUOTE)
-				handle_argument_word_expand(current, token);
-		//else if (token->type == TOK_SQUOTE)
-				//handle_argument_word(current, token);
+			handle_argument_word_expand(current, token);
+		else if (token->type == TOK_SQUOTE)
+			handle_argument_word(current, token);
 		else if (token->type == TOK_PIPE)
-				handle_pipe(&current); 
+			handle_pipe(&current); 
 		else if (token->type == TOK_IN_DIRECT)
-				handle_indirection(current, &token);
+			handle_indirection(current, &token);
 		else if (token->type == TOK_OUT_DIRECT)
-				handle_outdirection(current, &token, 0);
+			handle_outdirection(current, &token, 0);
 		else if (token->type == TOK_APPEND)
-				handle_outdirection(current, &token, 1); 
+			handle_outdirection(current, &token, 1);
 		else if (token->type == TOK_HEREDOC)
-				handle_heredoc(current, &token); 
+			handle_heredoc(current, &token);
 		token = token->next;	
 	}
 	return (head);

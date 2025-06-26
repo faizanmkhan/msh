@@ -41,6 +41,7 @@ t_token	*handle_quote(char *input, int *i, char quote)
 	char *quoted_str;
 	t_token	*token;
 
+	token = NULL;
 	quoted_str = extract_string(input, i);
 	if (!quoted_str)
 		return (NULL);
