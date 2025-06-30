@@ -69,7 +69,6 @@ char *find_executable(t_shell_data *shell, char *command)
 	result = check_direct_path(command);
 	if (result)
 		return result;
-
 	path_env = get_env_value(shell, "PATH");
 	if (!path_env)
 		return NULL;

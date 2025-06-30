@@ -7,6 +7,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stddef.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -94,14 +95,16 @@ int	command_execution(t_shell_data *myshell);
 int	execute_builtin(t_shell_data *shell, t_cmd *cmd);
 int	is_builtin(char *command);
 char	*get_env_value(t_shell_data *shell, char *key);
-void unset_env_value(t_shell_data *shell, char *key);
-void set_env_value(t_shell_data *shell, char *key, char *value);
-int builtin_cd(t_shell_data *shell, char **args);
-int builtin_exit(t_shell_data *shell, char **args);
-int builtin_env(t_shell_data *shell);
-int builtin_unset(t_shell_data *shell, char **args);
-int builtin_export(t_shell_data *shell, char **args);
-int builtin_pwd(void);
-int builtin_echo(char **args);
-char *find_executable(t_shell_data *shell, char *command);
+void	unset_env_value(t_shell_data *shell, char *key);
+void	set_env_value(t_shell_data *shell, char *key, char *value);
+int	builtin_cd(t_shell_data *shell, char **args);
+int	builtin_exit(t_shell_data *shell, char **args);
+int	builtin_env(t_shell_data *shell);
+int	builtin_unset(t_shell_data *shell, char **args);
+int	builtin_export(t_shell_data *shell, char **args);
+int	builtin_pwd(void);
+int	builtin_echo(char **args);
+char	*find_executable(t_shell_data *shell, char *command);
+int	execute_single_cmd(t_shell_data *myshell);
+int	setup_redirections(t_cmd *cmd);
 #endif

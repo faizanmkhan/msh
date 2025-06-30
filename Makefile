@@ -6,7 +6,8 @@ NAME = minishell
 
 SRCS = myshell.c utils.c parse_env.c init.c parse_input.c \
 		additional_functions.c token_helper.c create_command.c \
-		executor.c signals.c
+		executor.c signals.c redirection_setup.c find_executable.c \
+		builtins.c builtin_cd.c builtin_export.c 
 
 OBJS = $(SRCS:.c=.o)
 

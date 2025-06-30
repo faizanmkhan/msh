@@ -44,7 +44,7 @@ static void update_env_pwd(t_shell_data *shell, const char *oldpwd)
 {
 	char	cwd[1024];
 
-	set_env_value(shell, "OLDPWD", oldpwd);
+	set_env_value(shell, "OLDPWD", (char *)oldpwd);
 	if (getcwd(cwd, sizeof(cwd)))
 		set_env_value(shell, "PWD", cwd);
 }

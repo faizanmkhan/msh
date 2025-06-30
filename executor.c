@@ -8,12 +8,13 @@ int	command_execution(t_shell_data *myshell)
 	if (!cmd)
 		return (0);
 	if(!cmd->next)
-		return (execute_sigle_cmd(myshell));
-	else
-		return (execute_pipeline(myshell));
+		return (execute_single_cmd(myshell));
+	//else
+	//	return (execute_pipeline(myshell));
+	return (0);
 }
 
-int execute_sigle_cmd(t_shell_data *myshell)
+int execute_single_cmd(t_shell_data *myshell)
 {
 	pid_t pid;
 	int status;

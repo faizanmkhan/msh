@@ -55,7 +55,7 @@ char	*expand_env_value(char *env_s)
 	char	*fin_str;
 
 	fin_str = NULL;
-	if (env_s[0] == '$')
+	if (env_s[0] == '?')
 	{
 		
 		if (!fin_str)
