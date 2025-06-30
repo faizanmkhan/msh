@@ -102,13 +102,13 @@ int builtin_env(t_shell_data *shell)
 
 int builtin_exit(t_shell_data *shell, char **args)
 {
-	int exit_code = shell->exit_status;
+	int exit_code;
 
+	exit_code = shell->exit_status;
 	if (args[1])
 	{
-		exit_code = atoi(args[1]);
+		exit_code = ft_atoi(args[1]);
 	}
-
 	printf("exit\n");
 	cleanup_shell(shell);
 	exit(exit_code);

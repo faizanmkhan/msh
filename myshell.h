@@ -1,6 +1,9 @@
 #ifndef MYSHELL_H
 # define MYSHELL_H
 
+# include <wait.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stddef.h>
@@ -100,4 +103,5 @@ int builtin_unset(t_shell_data *shell, char **args);
 int builtin_export(t_shell_data *shell, char **args);
 int builtin_pwd(void);
 int builtin_echo(char **args);
+char *find_executable(t_shell_data *shell, char *command);
 #endif

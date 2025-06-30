@@ -10,7 +10,6 @@ void managing_input(t_shell_data *myshell, char *input)
 			add_history(input);
 	}
 	myshell->head_token = input_tokenaizer(input);
-	free(input);
 	myshell->head_cmd = create_cmd_with_token(myshell);
 }
 

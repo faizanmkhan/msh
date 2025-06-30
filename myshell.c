@@ -1,7 +1,7 @@
 
 #include "myshell.h"
 
-int g_signal = 0;
+int g_signal;
 
 int main(int argc, char **argv, char **envp)
 {

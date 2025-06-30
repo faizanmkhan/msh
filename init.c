@@ -40,8 +40,10 @@ void	core_shell_loop(t_shell_data *myshell)
 			g_signal = 0;
 		}
 		if (input)
+		{
 			managing_input(myshell, input);
-		myshell->exit_status = command_execution(myshell);
-		
+			myshell->exit_status = command_execution(myshell);
+		}
+		free (input);
 	}
 }
