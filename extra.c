@@ -52,3 +52,16 @@ void managing_input(t_shell_data *myshell, char *input)
 	}
 	
 }
+
+int is_n_flag(const char *arg)
+{
+    int i;
+
+    if (!arg || arg[0] != '-')
+        return 0;
+    i = 1;
+    while (arg[i] == 'n')
+        i++;
+    return arg[i] == '\0';  // True only if all after '-' are 'n's
+}
+

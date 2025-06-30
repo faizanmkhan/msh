@@ -1,4 +1,4 @@
-from gpt
+//from gpt, ignore
 
 static int is_var_char(char c)
 {

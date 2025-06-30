@@ -5,7 +5,8 @@ LIBFT_DIR	= ./libft
 NAME = minishell
 
 SRCS = myshell.c utils.c parse_env.c init.c parse_input.c \
-		additional_functions.c token_helper.c create_command.c
+		additional_functions.c token_helper.c create_command.c \
+		executor.c signals.c
 
 OBJS = $(SRCS:.c=.o)
 

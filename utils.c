@@ -2,10 +2,17 @@
 
 void cleanup_shell(t_shell_data *shell)
 {
+	free_env(shell->shell_env);
+	free_token(shell->head_token);
+	free_commands(shell->head_cmd);
+}
+
+void free_env(t_env_data *env)
+{
 	t_env_data	*current;
 	t_env_data	*next;
 
-	current = shell->shell_env;
+	current = env;
 	while (current)
 	{
 		next = current->next;
@@ -26,6 +33,40 @@ void	free_token(t_token *tokens)
 	{
 		next = current->next;
 		free(current->value);
+		free(current);
+		current = next;
+	}
+}
+
+
+void free_array(char **array)
+{
+	int i;
+
+	if (!array)
+		return;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void free_commands(t_cmd *commands)
+{
+	t_cmd *current, *next;
+
+	current = commands;
+	while (current)
+	{
+		next = current->next;
+		free_array(current->args);
+		free(current->in_file);
+		free(current->out_file);
+		free(current->heredoc_delim);
 		free(current);
 		current = next;
 	}

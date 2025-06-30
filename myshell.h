@@ -76,4 +76,28 @@ t_token	*handle_metachar(char *input, int *i);
 t_token	*handle_word(char *input, int *i);
 void	free_token(t_token *tokens);
 t_cmd	*create_cmd_with_token(t_shell_data *myshell);
+
+char	*processing_env_expansion(char *s);
+char	*expand_env_value(char *env_s);
+int	ft_char_pos(char *s, int start, char c);
+void	handle_argument_word_expand(t_cmd	*cmd, t_token *token);
+int	ft_strcmp(const char *str1, const char *str2);
+void	set_signals(t_shell_data *myshell);
+void free_env(t_env_data *env);
+void free_commands(t_cmd *commands);
+void free_array(char **array);
+int	command_execution(t_shell_data *myshell);
+// builtins
+int	execute_builtin(t_shell_data *shell, t_cmd *cmd);
+int	is_builtin(char *command);
+char	*get_env_value(t_shell_data *shell, char *key);
+void unset_env_value(t_shell_data *shell, char *key);
+void set_env_value(t_shell_data *shell, char *key, char *value);
+int builtin_cd(t_shell_data *shell, char **args);
+int builtin_exit(t_shell_data *shell, char **args);
+int builtin_env(t_shell_data *shell);
+int builtin_unset(t_shell_data *shell, char **args);
+int builtin_export(t_shell_data *shell, char **args);
+int builtin_pwd(void);
+int builtin_echo(char **args);
 #endif

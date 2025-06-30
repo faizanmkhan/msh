@@ -10,9 +10,8 @@ void managing_input(t_shell_data *myshell, char *input)
 			add_history(input);
 	}
 	myshell->head_token = input_tokenaizer(input);
+	free(input);
 	myshell->head_cmd = create_cmd_with_token(myshell);
-	// test
-	
 }
 
 t_token	*input_tokenaizer(char *input_str)
@@ -37,10 +36,10 @@ t_token	*input_tokenaizer(char *input_str)
 		else if (ft_strchr("|<>", input_str[i]))
 			new_token = handle_metachar(input_str, &i);
 		else
-			new_token = handle_word(input_str, &i); // need to code
+			new_token = handle_word(input_str, &i);
 		if (!new_token)
 			return (NULL);
-		append_token(&head, &current, new_token); // need to code
+		append_token(&head, &current, new_token);
 	}
 	return (head);
 }

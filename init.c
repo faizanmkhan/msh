@@ -25,7 +25,7 @@ void	core_shell_loop(t_shell_data *myshell)
 {
 	char	*input;
 
-	// set_signal(); singnal handling function
+	set_signals(myshell);
 	while(42)
 	{
 		input = readline("mY_sHEll:~$ ");
@@ -34,15 +34,14 @@ void	core_shell_loop(t_shell_data *myshell)
 			printf("exit\n");
 			break;
 		}
-		if (g_signal == SIGINT)
+		if (g_signal == SIGQUIT)
 		{
 			myshell->exit_status = 130;
 			g_signal = 0;
 		}
 		if (input)
-		{
 			managing_input(myshell, input);
-		}
-		free(input);
+		myshell->exit_status = command_execution(myshell);
+		
 	}
 }

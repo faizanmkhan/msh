@@ -16,6 +16,8 @@ static t_cmd	*init_command(void)
 	return (cmd);
 }
 
+
+
 void	handle_argument_word(t_cmd	*cmd, t_token *token)
 {
 
@@ -49,13 +51,12 @@ void	handle_argument_word(t_cmd	*cmd, t_token *token)
 
 void	handle_argument_word_expand(t_cmd	*cmd, t_token *token)
 {
-
 	int		count;
 	char	**new_arg;
 	char	*final_arg;
 	int		i;
-	
-	final_arg = ft_strdup(token->value);
+
+	final_arg = processing_env_expansion(token->value);
 	count = 0;
 	if (cmd->args)
 	{
@@ -77,6 +78,7 @@ void	handle_argument_word_expand(t_cmd	*cmd, t_token *token)
 	new_arg[count + 1] = 0;
 	cmd->args = new_arg;
 }
+
 
 void	handle_pipe(t_cmd **current)
 {
@@ -134,7 +136,7 @@ t_cmd	*create_cmd_with_token(t_shell_data *myshell)
 	while(token)
 	{
 		if (token->type == TOK_WORD || token->type == TOK_DQUOTE)
-				handle_argument_word_expand(current, token); // need to code
+				handle_argument_word_expand(current, token);
 		else if (token->type == TOK_SQUOTE)
 				handle_argument_word(current, token);
 		else if (token->type == TOK_PIPE)
