@@ -49,18 +49,13 @@ int	ft_char_pos(char *s, int start, char c)
 	return (-1);
 }
 
-char	*expand_env_value(char *env_s)
+char	*expand_env_value(char *env_s, t_shell_data *shell)
 {
 	char	*env_big;
-	char	*fin_str;
 
-	fin_str = NULL;
 	if (env_s[0] == '?')
 	{
-		
-		if (!fin_str)
-			return (NULL);
-		return (fin_str);
+		return (ft_itoa(shell->exit_status));
 	}
 	else
 	{
@@ -72,7 +67,7 @@ char	*expand_env_value(char *env_s)
 	return (NULL);
 }
 
-char	*processing_env_expansion(char *s)
+char	*processing_env_expansion(char *s, t_shell_data *myshell)
 {
 	int		sign_pos;
 	int		space_i;
@@ -90,7 +85,7 @@ char	*processing_env_expansion(char *s)
 	if (space_i == -1)
 		space_i = ft_strlen(s);
 	env_s = ft_substr(s, sign_pos + 1, space_i - sign_pos - 1);
-	exp_env = expand_env_value(env_s);
+	exp_env = expand_env_value(env_s, myshell);
 	free(env_s);
 	final_str = ft_strjoin(bef_s, exp_env);
 	free(bef_s);
