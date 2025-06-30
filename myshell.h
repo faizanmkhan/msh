@@ -84,7 +84,7 @@ t_cmd	*create_cmd_with_token(t_shell_data *myshell);
 char	*processing_env_expansion(char *s, t_shell_data *myshell);
 char	*expand_env_value(char *env_s, t_shell_data *myshell);
 int	ft_char_pos(char *s, int start, char c);
-void	handle_argument_word_expand(t_cmd	*cmd, t_token *token, t_shell_data *myshell);
+void	handle_word_expand(t_cmd	*cmd, t_token *token, t_shell_data *myshell);
 int	ft_strcmp(const char *str1, const char *str2);
 void	set_signals(t_shell_data *myshell);
 void free_env(t_env_data *env);
@@ -107,4 +107,9 @@ int	builtin_echo(char **args);
 char	*find_executable(t_shell_data *shell, char *command);
 int	execute_single_cmd(t_shell_data *myshell);
 int	setup_redirections(t_cmd *cmd);
+void quit_handler(int sig);
+int setup_pipe_if_needed(t_cmd *current);
+void handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd);
+int execute_pipeline(t_shell_data *myshell);
+int handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current);
 #endif

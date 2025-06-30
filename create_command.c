@@ -49,7 +49,7 @@ void	handle_argument_word(t_cmd	*cmd, t_token *token)
 	cmd->args = new_arg;
 }
 
-void	handle_argument_word_expand(t_cmd	*cmd, t_token *token, t_shell_data *myshell)
+void	handle_word_expand(t_cmd *cmd, t_token *token, t_shell_data *myshell)
 {
 	int		count;
 	char	**new_arg;
@@ -136,7 +136,7 @@ t_cmd	*create_cmd_with_token(t_shell_data *myshell)
 	while(token)
 	{
 		if (token->type == TOK_WORD || token->type == TOK_DQUOTE)
-				handle_argument_word_expand(current, token, myshell);
+				handle_word_expand(current, token, myshell);
 		else if (token->type == TOK_SQUOTE)
 				handle_argument_word(current, token);
 		else if (token->type == TOK_PIPE)

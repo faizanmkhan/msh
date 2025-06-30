@@ -6,10 +6,19 @@ static void interupter_handler(int sig)
 	
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_putstr_fd("\n", STDIN_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+	}
+}
+
+void quit_handler(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("Quit (core dumped)\n", STDIN_FILENO);
+		exit(131);
 	}
 }
 
