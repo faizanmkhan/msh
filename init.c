@@ -6,7 +6,7 @@ void	init_shell_data(t_shell_data *myshell, char **envp)
 	t_env_data	*env_var;
 	
 	myshell->exit_status = 0;
-	myshell->envp = NULL;
+	myshell->envp = envp;
 	myshell->pid = -1;
 	myshell->head_cmd = NULL;
 	myshell->head_token = NULL;
