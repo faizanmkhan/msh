@@ -6,7 +6,7 @@
 /*   By: korzecho <korzecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:23:15 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 20:55:11 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/01 21:02:30 by korzecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,7 @@ void	core_shell_loop(t_shell_data *myshell)
 			managing_input(myshell, input);
 			myshell->exit_status = command_execution(myshell);
 			reset_redir(myshell);
-			//cleanup_shell(myshell);
-			free_commands(myshell->head_cmd);
-			free_token(myshell->head_token);
-			myshell->head_cmd = NULL;
-			myshell->head_token = NULL;
+			free_token_and_commands(myshell);
 		}
 		free (input);
 	}

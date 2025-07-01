@@ -39,3 +39,11 @@ void	syntax_error(t_shell_data *shell)
 	shell->syntax_err = 1;
 	return ;
 }
+
+void	free_token_and_commands(t_shell_data *myshell)
+{
+	free_commands(myshell->head_cmd);
+	free_token(myshell->head_token);
+	myshell->head_cmd = NULL;
+	myshell->head_token = NULL;
+}

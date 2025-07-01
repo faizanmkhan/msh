@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myshell.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: korzecho <korzecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:23:47 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 20:12:52 by faikhan          ###   ########.fr       */
+/*   Updated: 2025/07/01 21:01:35 by korzecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void		core_shell_loop(t_shell_data *myshell);
 void		managing_input(t_shell_data *myshell, char *input);
 void		set_signals(t_shell_data *myshell);
 void		free_commands(t_cmd *commands);
+void		free_token_and_commands(t_shell_data *myshell);
 void		quit_handler(int sig);
 
 void		syntax_error(t_shell_data *shell);
