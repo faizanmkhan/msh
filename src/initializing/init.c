@@ -8,6 +8,13 @@ void	init_shell_data(t_shell_data *myshell, char **envp)
 	myshell->exit_status = 0;
 	myshell->envp = envp;
 	myshell->pid = -1;
+	myshell->saved_stdin = dup(STDIN_FILENO);
+	myshell->saved_stdout = dup(STDOUT_FILENO);
+	if (myshell->saved_stdin == -1 || myshell->saved_stdout == -1)
+	{
+		perror("dup");
+		//exit(); what code is needed for exit?
+	}
 	myshell->head_cmd = NULL;
 	myshell->head_token = NULL;
 	myshell->shell_env = NULL;
@@ -45,6 +52,7 @@ void	core_shell_loop(t_shell_data *myshell)
 			managing_input(myshell, input);
 			myshell->exit_status = command_execution(myshell);
 			myshell->syntax_err = 0;
+			reset_redir(myshell);
 		}
 		free (input);
 	}
