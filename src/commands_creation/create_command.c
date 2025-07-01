@@ -28,6 +28,33 @@ t_cmd	*init_command(void)
 	return (cmd);
 }
 
+static int	check_token_v2(t_token **token,
+		t_cmd *current, t_shell_data *myshell)
+{
+	if ((*token)->type == TOK_OUT_DIRECT)
+	{
+		if (!(*token)->next || (*token)->next->type == TOK_PIPE)
+			syntax_error(myshell);
+		handle_outdirection(current, &(*token), 0);
+		(*token) = (*token)->next;
+		return (1);
+	}
+	else if ((*token)->type == TOK_APPEND)
+	{
+		if (!(*token)->next || (*token)->next->type == TOK_PIPE)
+			syntax_error(myshell);
+		handle_outdirection(current, &(*token), 1);
+		(*token) = (*token)->next;
+		return (1);
+	}
+	else if ((*token)->type == TOK_HEREDOC)
+	{
+		handle_heredoc_token(current, &(*token));
+		return (1);
+	}
+	return (0);
+}
+
 static void	check_token(t_token *token, t_cmd *current, t_shell_data *myshell)
 {
 	while (token)
@@ -49,25 +76,8 @@ static void	check_token(t_token *token, t_cmd *current, t_shell_data *myshell)
 			handle_indirection(current, &token);
 			continue ;
 		}
-		else if (token->type == TOK_OUT_DIRECT)
-		{
-			if (!token->next || token->next->type == TOK_PIPE)
-				syntax_error(myshell);
-			handle_outdirection(current, &token, 0);
+		else if (check_token_v2(&token, current, myshell) == 1)
 			continue ;
-		}
-		else if (token->type == TOK_APPEND)
-		{
-			if (!token->next || token->next->type == TOK_PIPE)
-				syntax_error(myshell);
-			handle_outdirection(current, &token, 1);
-			continue ;
-		}
-		else if (token->type == TOK_HEREDOC)
-		{
-			handle_heredoc_token(current, &token);
-			continue ;
-		}
 		token = token->next;
 	}
 }
