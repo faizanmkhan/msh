@@ -1,6 +1,6 @@
 #include "myshell.h"
 
-static void print_export_env(t_env_data *env)
+static void	print_export_env(t_env_data *env)
 {
 	while (env)
 	{
@@ -9,7 +9,7 @@ static void print_export_env(t_env_data *env)
 	}
 }
 
-static void handle_export_argument(t_shell_data *shell, char *arg)
+static void	handle_export_argument(t_shell_data *shell, char *arg)
 {
 	char	*equals;
 	char	*key;
@@ -30,7 +30,7 @@ static void handle_export_argument(t_shell_data *shell, char *arg)
 	}
 }
 
-int builtin_export(t_shell_data *shell, char **args)
+int	builtin_export(t_shell_data *shell, char **args)
 {
 	int	i;
 

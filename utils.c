@@ -1,13 +1,13 @@
 #include "myshell.h"
 
-void cleanup_shell(t_shell_data *shell)
+void	cleanup_shell(t_shell_data *shell)
 {
 	free_env(shell->shell_env);
 	free_token(shell->head_token);
 	free_commands(shell->head_cmd);
 }
 
-void free_env(t_env_data *env)
+void	free_env(t_env_data *env)
 {
 	t_env_data	*current;
 	t_env_data	*next;
@@ -25,8 +25,8 @@ void free_env(t_env_data *env)
 
 void	free_token(t_token *tokens)
 {
-	t_token *current;
-	t_token *next;
+	t_token	*current;
+	t_token	*next;
 
 	current = tokens;
 	while (current)
@@ -38,14 +38,12 @@ void	free_token(t_token *tokens)
 	}
 }
 
-
-void free_array(char **array)
+void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	if (!array)
-		return;
-
+		return ;
 	i = 0;
 	while (array[i])
 	{
@@ -55,9 +53,10 @@ void free_array(char **array)
 	free(array);
 }
 
-void free_commands(t_cmd *commands)
+void	free_commands(t_cmd *commands)
 {
-	t_cmd *current, *next;
+	t_cmd	*current;
+	t_cmd	*next;
 
 	current = commands;
 	while (current)

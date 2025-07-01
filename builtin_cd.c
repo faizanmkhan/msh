@@ -1,4 +1,3 @@
-
 #include "myshell.h"
 
 static char	*resolve_cd_path(t_shell_data *shell, char **args)
@@ -26,7 +25,7 @@ static char	*get_current_dir(void)
 	char	cwd[1024];
 
 	if (getcwd(cwd, sizeof(cwd)))
-		return ft_strdup(cwd);
+		return (ft_strdup(cwd));
 	return (ft_strdup(""));
 }
 
@@ -40,7 +39,7 @@ static int	change_directory(const char *path)
 	return (0);
 }
 
-static void update_env_pwd(t_shell_data *shell, const char *oldpwd)
+static void	update_env_pwd(t_shell_data *shell, const char *oldpwd)
 {
 	char	cwd[1024];
 
@@ -49,7 +48,7 @@ static void update_env_pwd(t_shell_data *shell, const char *oldpwd)
 		set_env_value(shell, "PWD", cwd);
 }
 
-int builtin_cd(t_shell_data *shell, char **args)
+int	builtin_cd(t_shell_data *shell, char **args)
 {
 	char	*path;
 	char	*oldpwd;
@@ -57,7 +56,6 @@ int builtin_cd(t_shell_data *shell, char **args)
 	path = resolve_cd_path(shell, args);
 	if (!path)
 		return (1);
-
 	oldpwd = get_current_dir();
 	if (!oldpwd)
 		return (1);

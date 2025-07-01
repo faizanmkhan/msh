@@ -1,9 +1,9 @@
 #include "myshell.h"
 
-static int handle_heredoc(t_cmd *cmd)
+static	int	handle_heredoc(t_cmd *cmd)
 {
-	char *line;
-	int pipefd[2];
+	char	*line;
+	int		pipefd[2];
 
 	if (!cmd->heredoc_delim)
 		return (0);
@@ -15,7 +15,7 @@ static int handle_heredoc(t_cmd *cmd)
 		if (!line || ft_strcmp(line, cmd->heredoc_delim) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(pipefd[1], line, ft_strlen(line));
 		write(pipefd[1], "\n", 1);
@@ -27,19 +27,19 @@ static int handle_heredoc(t_cmd *cmd)
 	return (0);
 }
 
-static int setup_heredoc(t_cmd *cmd)
+static	int	setup_heredoc(t_cmd *cmd)
 {
 	if (cmd->heredoc_delim)
 	{
 		if (handle_heredoc(cmd) == -1)
 			return (-1);
 	}
-	return 0;
+	return (0);
 }
 
-static int setup_input_redirection(t_cmd *cmd)
+static	int	setup_input_redirection(t_cmd *cmd)
 {
-	int fd;
+	int	fd;
 
 	if (cmd->in_file)
 	{
@@ -47,7 +47,7 @@ static int setup_input_redirection(t_cmd *cmd)
 		if (fd == -1)
 		{
 			perror(cmd->in_file);
-			return -1;
+			return (-1);
 		}
 		if (dup2(fd, STDIN_FILENO) == -1)
 		{
@@ -57,12 +57,12 @@ static int setup_input_redirection(t_cmd *cmd)
 		}
 		close(fd);
 	}
-	return 0;
+	return (0);
 }
 
-static int setup_output_redirection(t_cmd *cmd)
+static	int	setup_output_redirection(t_cmd *cmd)
 {
-	int fd;
+	int	fd;
 
 	if (cmd->out_file)
 	{
@@ -70,11 +70,10 @@ static int setup_output_redirection(t_cmd *cmd)
 			fd = open(cmd->out_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
 			fd = open(cmd->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-
 		if (fd == -1)
 		{
 			perror(cmd->out_file);
-			return -1;
+			return (-1);
 		}
 		if (dup2(fd, STDOUT_FILENO) == -1)
 		{
@@ -84,19 +83,16 @@ static int setup_output_redirection(t_cmd *cmd)
 		}
 		close(fd);
 	}
-	return 0;
+	return (0);
 }
 
-int setup_redirections(t_cmd *cmd)
+int	setup_redirections(t_cmd *cmd)
 {
 	if (setup_heredoc(cmd) == -1)
 		return (-1);
-
 	if (setup_input_redirection(cmd) == -1)
 		return (-1);
-
 	if (setup_output_redirection(cmd) == -1)
 		return (-1);
-
 	return (0);
 }

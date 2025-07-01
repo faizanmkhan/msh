@@ -1,6 +1,6 @@
 #include "myshell.h"
 
-int setup_pipe_if_needed(t_cmd *current)
+int	setup_pipe_if_needed(t_cmd *current)
 {
 	if (current->next)
 	{
@@ -10,12 +10,12 @@ int setup_pipe_if_needed(t_cmd *current)
 			return (-1);
 		}
 	}
-	return 0;
+	return (0);
 }
 
-int handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current)
+int	handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current)
 {
-	int status;
+	int	status;
 
 	if (*prev_fd != -1)
 		close(*prev_fd);
@@ -28,16 +28,22 @@ int handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			return WEXITSTATUS(status);
+			return (WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))
-			return 128 + WTERMSIG(status);
+			return (128 + WTERMSIG(status));
 	}
-	return -2;
+	return (-2);
 }
 
-void handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd)
+void	cmd_not_found(void)
 {
-	char *executable;
+	ft_putstr_fd("Error: command not found\n", STDERR_FILENO);
+	exit(127);
+}
+
+void	handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd)
+{
+	char	*executable;
 
 	if (prev_fd != -1)
 	{
@@ -56,10 +62,7 @@ void handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd)
 		exit(execute_builtin(shell, current));
 	executable = find_executable(shell, current->args[0]);
 	if (!executable)
-	{
-		ft_putstr_fd("Error: command not found\n", STDERR_FILENO);
-		exit(127);
-	}
+		cmd_not_found();
 	execve(executable, current->args, shell->envp);
 	perror("execve");
 	exit(127);

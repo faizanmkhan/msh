@@ -1,9 +1,8 @@
 #include "myshell.h"
 
-static void interupter_handler(int sig)
+static	void	interupter_handler(int sig)
 {
 	g_signal = sig;
-	
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", STDIN_FILENO);
@@ -13,7 +12,7 @@ static void interupter_handler(int sig)
 	}
 }
 
-void quit_handler(int sig)
+void	quit_handler(int sig)
 {
 	if (sig == SIGQUIT)
 	{
@@ -22,9 +21,9 @@ void quit_handler(int sig)
 	}
 }
 
-void set_signals(t_shell_data *myshell)
+void	set_signals(t_shell_data *myshell)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	g_signal = 0;
 	myshell->exit_status = g_signal;

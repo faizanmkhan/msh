@@ -38,7 +38,7 @@ static t_token	*out_direction(char *input, int *i)
 
 t_token	*handle_quote(char *input, int *i, char quote)
 {
-	char *quoted_str;
+	char	*quoted_str;
 	t_token	*token;
 
 	token = NULL;
@@ -46,7 +46,7 @@ t_token	*handle_quote(char *input, int *i, char quote)
 	if (!quoted_str)
 		return (NULL);
 	if (quote == '\'')
-		token = create_token(quoted_str, TOK_SQUOTE); 
+		token = create_token(quoted_str, TOK_SQUOTE);
 	else if (quote == '"')
 		token = create_token(quoted_str, TOK_DQUOTE);
 	free(quoted_str);
@@ -55,10 +55,10 @@ t_token	*handle_quote(char *input, int *i, char quote)
 
 char	*extract_string(char *input, int *i)
 {
-	char quote;
-	int start;
-	int len;
-	char *result;
+	char	quote;
+	int		start;
+	int		len;
+	char	*result;
 
 	quote = input[*i];
 	start = ++(*i);

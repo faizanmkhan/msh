@@ -1,20 +1,20 @@
 #include "myshell.h"
 
-static char *check_direct_path(char *command)
+static char	*check_direct_path(char *command)
 {
 	if (strchr(command, '/'))
 	{
 		if (access(command, X_OK) == 0)
-			return ft_strdup(command);
+			return (ft_strdup(command));
 		return (NULL);
 	}
 	return (NULL);
 }
 
-static char *join_path_command(const char *path, const char *command)
+static	char	*join_path_command(const char *path, const char *command)
 {
-	char *tmp;
-	char *full_path;
+	char	*tmp;
+	char	*full_path;
 
 	tmp = ft_strjoin(path, "/");
 	if (!tmp)
@@ -24,20 +24,21 @@ static char *join_path_command(const char *path, const char *command)
 	return (full_path);
 }
 
-static int is_executable(const char *full_path)
+static	int	is_executable(const char *full_path)
 {
-	struct stat st;
+	struct stat	st;
 
-	if (stat(full_path, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
+	if (stat(full_path, &st) == 0
+		&& S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
 		return (1);
 	return (0);
 }
 
-static char *search_in_path(char **paths, char *command)
+static	char	*search_in_path(char **paths, char *command)
 {
-	int i;
-	char *full_path;
-	
+	int		i;
+	char	*full_path;
+
 	i = 0;
 	while (paths[i])
 	{
@@ -45,13 +46,12 @@ static char *search_in_path(char **paths, char *command)
 		if (!full_path)
 		{
 			i++;
-			continue;
+			continue ;
 		}
-
 		if (is_executable(full_path))
 		{
 			free_array(paths);
-			return full_path;
+			return (full_path);
 		}
 		free(full_path);
 		i++;
@@ -60,22 +60,20 @@ static char *search_in_path(char **paths, char *command)
 	return (NULL);
 }
 
-char *find_executable(t_shell_data *shell, char *command)
+char	*find_executable(t_shell_data *shell, char *command)
 {
-	char *result;
-	char *path_env;
-	char **paths;
+	char	*result;
+	char	*path_env;
+	char	**paths;
 
 	result = check_direct_path(command);
 	if (result)
-		return result;
+		return (result);
 	path_env = get_env_value(shell, "PATH");
 	if (!path_env)
-		return NULL;
-
+		return (NULL);
 	paths = ft_split(path_env, ':');
 	if (!paths)
-		return NULL;
-
-	return search_in_path(paths, command);
+		return (NULL);
+	return (search_in_path(paths, command));
 }

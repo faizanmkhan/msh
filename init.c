@@ -2,9 +2,9 @@
 
 void	init_shell_data(t_shell_data *myshell, char **envp)
 {
-	int	i;
+	int			i;
 	t_env_data	*env_var;
-	
+
 	myshell->exit_status = 0;
 	myshell->envp = envp;
 	myshell->pid = -1;
@@ -26,13 +26,13 @@ void	core_shell_loop(t_shell_data *myshell)
 	char	*input;
 
 	set_signals(myshell);
-	while(42)
+	while (42)
 	{
 		input = readline("mY_sHEll:~$ ");
 		if (!input)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		if (g_signal == SIGQUIT)
 		{

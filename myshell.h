@@ -15,7 +15,7 @@
 
 extern int g_signal;
 
-typedef enum	e_tok_type
+typedef enum e_tok_type
 {
 	TOK_WORD = 1,
 	TOK_SQUOTE,
@@ -26,32 +26,32 @@ typedef enum	e_tok_type
 	TOK_APPEND,
 	TOK_HEREDOC,
 	TOK_EOF,
-} t_tok_type;
+}	t_tok_type;
 
 typedef struct s_token
 {
-	char *value;
-	t_tok_type	type;
+	char			*value;
+	t_tok_type		type;
 	struct s_token	*next;
-} t_token;
+}	t_token;
 
 typedef struct s_cmd
 {
-	char	**args;
-	char	*in_file;
-	char	*out_file;
-	char	*heredoc_delim;
-	int		append_mode;
-	int		pipe_fd[2];
+	char			**args;
+	char			*in_file;
+	char			*out_file;
+	char			*heredoc_delim;
+	int				append_mode;
+	int				pipe_fd[2];
 	struct s_cmd	*next;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_env_data
 {
-	char	*key;
-	char	*value;
+	char				*key;
+	char				*value;
 	struct s_env_data	*next;
-} t_env_data;
+}	t_env_data;
 
 typedef struct s_shell_data
 {
@@ -61,7 +61,7 @@ typedef struct s_shell_data
 	t_cmd		*head_cmd;
 	t_token		*head_token;
 	t_env_data	*shell_env;
-} t_shell_data;
+}	t_shell_data;
 
 int	is_metachar(char c);
 int	is_quote(char c);
@@ -81,7 +81,18 @@ t_token	*handle_word(char *input, int *i);
 void	free_token(t_token *tokens);
 t_cmd	*create_cmd_with_token(t_shell_data *myshell);
 
-char	*processing_env_expansion(char *s, t_shell_data *myshell);
+
+t_cmd	*init_command(void);
+
+void	handle_argument_word(t_cmd	*cmd, t_token *token);
+void	handle_word_expand(t_cmd *cmd, t_token *token, t_shell_data *myshell);
+void	handle_pipe(t_cmd **current);
+void	handle_indirection(t_cmd *current, t_token **token);
+void	handle_outdirection(t_cmd *current, t_token **token, int mode);
+void	handle_heredoc_token(t_cmd *current, t_token **token);
+
+
+void	processing_env_expansion(char *s, t_shell_data *myshell, char **final_str);
 char	*expand_env_value(char *env_s, t_shell_data *myshell);
 int	ft_char_pos(char *s, int start, char c);
 void	handle_word_expand(t_cmd	*cmd, t_token *token, t_shell_data *myshell);
