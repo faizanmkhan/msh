@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: korzecho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/01 18:23:15 by korzecho          #+#    #+#             */
+/*   Updated: 2025/07/01 18:31:41 by korzecho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/myshell.h"
 
 void	init_shell_data(t_shell_data *myshell, char **envp)
@@ -13,7 +25,7 @@ void	init_shell_data(t_shell_data *myshell, char **envp)
 	if (myshell->saved_stdin == -1 || myshell->saved_stdout == -1)
 	{
 		perror("dup");
-		//exit(); what code is needed for exit?
+		exit(-1);
 	}
 	myshell->head_cmd = NULL;
 	myshell->head_token = NULL;
