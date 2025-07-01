@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_single_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: korzecho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:07:44 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 17:07:45 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/01 20:19:48 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	child_process(t_shell_data *myshell, char *executable)
 {
-	signal(SIGQUIT, quit_handler);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (setup_redirections(myshell->head_cmd) == -1)
 		exit (1);
 	execve(executable, myshell->head_cmd->args, myshell->envp);
@@ -25,13 +26,19 @@ static void	child_process(t_shell_data *myshell, char *executable)
 static int	parent_process(pid_t pid, char *executable)
 {
 	int	status;
+	int	sig;
 
 	waitpid(pid, &status, 0);
 	free (executable);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
-		return (128 + WTERMSIG(status));
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+		return (128 + sig);
+	}
 	return (0);
 }
 
@@ -47,7 +54,7 @@ int	execute_single_cmd(t_shell_data *myshell)
 	executable = find_executable(myshell, myshell->head_cmd->args[0]);
 	if (!executable)
 	{
-		ft_putstr_fd("Error: Command not found!", STDERR_FILENO);
+		ft_putstr_fd("Error: Command not found!\n", STDERR_FILENO);
 		return (127);
 	}
 	pid = fork();

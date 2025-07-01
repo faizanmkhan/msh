@@ -6,7 +6,7 @@
 /*   By: korzecho <korzecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:23:15 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 20:26:40 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/01 20:55:11 by korzecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_shell_data(t_shell_data *myshell, char **envp)
 	myshell->pid = -1;
 	myshell->saved_stdin = dup(STDIN_FILENO);
 	myshell->saved_stdout = dup(STDOUT_FILENO);
+	myshell->syntax_err = 0;
 	if (myshell->saved_stdin == -1 || myshell->saved_stdout == -1)
 	{
 		perror("dup");
