@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: korzecho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:13:50 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 17:13:51 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/01 20:29:30 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static	void	interupter_handler(int sig)
 	g_signal = sig;
 	if (sig == SIGINT)
 	{
-		ft_putstr_fd("\n", STDIN_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();

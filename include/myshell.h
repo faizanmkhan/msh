@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myshell.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: korzecho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:23:47 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 18:29:16 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/01 20:12:52 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			setup_redirections(t_cmd *cmd);
 int			setup_pipe_if_needed(t_cmd *current);
 int			handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current);
 void		handle_child_process(t_shell_data *shell,
-				t_cmd *current, int prev_fd);
+				t_cmd	*current, int prev_fd);
 char		*find_executable(t_shell_data *shell, char *command);
 int			reset_redir(t_shell_data *shell);
 
