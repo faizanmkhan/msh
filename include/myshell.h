@@ -55,6 +55,7 @@ typedef struct s_env_data
 
 typedef struct s_shell_data
 {
+	int			syntax_err;
 	int			exit_status;
 	char		**envp;
 	pid_t		pid;
@@ -128,4 +129,6 @@ void	managing_input(t_shell_data *myshell, char *input);
 void	set_signals(t_shell_data *myshell);
 void	free_commands(t_cmd *commands);
 void	quit_handler(int sig);
+
+void syntax_error(t_shell_data *shell);
 #endif

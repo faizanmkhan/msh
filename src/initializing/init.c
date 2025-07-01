@@ -11,6 +11,7 @@ void	init_shell_data(t_shell_data *myshell, char **envp)
 	myshell->head_cmd = NULL;
 	myshell->head_token = NULL;
 	myshell->shell_env = NULL;
+	myshell->syntax_err = 0;
 	i = 0;
 	while (envp[i])
 	{
@@ -43,6 +44,7 @@ void	core_shell_loop(t_shell_data *myshell)
 		{
 			managing_input(myshell, input);
 			myshell->exit_status = command_execution(myshell);
+			myshell->syntax_err = 0;
 		}
 		free (input);
 	}

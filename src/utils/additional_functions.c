@@ -19,3 +19,11 @@ int	ft_strcmp(const char *str1, const char *str2)
 	}
 	return ((unsigned char)(*str1) - (unsigned char)(*str2));
 }
+
+void syntax_error(t_shell_data *shell)
+{
+	ft_putstr_fd("syntax error unexpected input\n", STDERR_FILENO);
+	shell->exit_status = 2;
+	shell->syntax_err = 1;
+	return;
+}
