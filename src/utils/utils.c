@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: korzecho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: korzecho <korzecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:09:26 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 17:09:27 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/01 20:49:11 by korzecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	free_env(t_env_data *env)
 		free(current);
 		current = next;
 	}
+	env = NULL;
 }
 
 void	free_token(t_token *tokens)
@@ -48,6 +49,7 @@ void	free_token(t_token *tokens)
 		free(current);
 		current = next;
 	}
+	tokens = NULL;
 }
 
 void	free_array(char **array)
@@ -63,6 +65,7 @@ void	free_array(char **array)
 		i++;
 	}
 	free(array);
+	array = NULL;
 }
 
 void	free_commands(t_cmd *commands)
@@ -81,4 +84,5 @@ void	free_commands(t_cmd *commands)
 		free(current);
 		current = next;
 	}
+	commands = NULL;
 }
