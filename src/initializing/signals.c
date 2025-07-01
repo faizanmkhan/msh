@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 static	void	interupter_handler(int sig)
 {

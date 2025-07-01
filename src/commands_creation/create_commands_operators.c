@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 void	handle_pipe(t_cmd **current)
 {

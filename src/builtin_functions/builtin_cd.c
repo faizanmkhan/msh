@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 static char	*resolve_cd_path(t_shell_data *shell, char **args)
 {

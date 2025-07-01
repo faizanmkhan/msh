@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 static t_token	*in_direction(char *input, int *i)
 {

@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 static int	execute_loop(t_cmd *current, t_shell_data *myshell, int prev_fd)
 {

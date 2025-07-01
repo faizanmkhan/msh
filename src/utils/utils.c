@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 void	cleanup_shell(t_shell_data *shell)
 {

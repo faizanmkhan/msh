@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 void	handle_argument_word(t_cmd	*cmd, t_token *token)
 {

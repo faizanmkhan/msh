@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 int	setup_pipe_if_needed(t_cmd *current)
 {

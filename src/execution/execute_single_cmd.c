@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 static void	child_process(t_shell_data *myshell, char *executable)
 {

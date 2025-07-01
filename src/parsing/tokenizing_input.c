@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 void	append_token(t_token **head, t_token **current, t_token *new_token)
 {

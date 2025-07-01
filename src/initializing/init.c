@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 void	init_shell_data(t_shell_data *myshell, char **envp)
 {

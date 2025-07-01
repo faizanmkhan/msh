@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 static	int	handle_heredoc(t_cmd *cmd)
 {

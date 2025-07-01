@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "../../include/myshell.h"
 
 t_env_data	*parse_env_var(char *str_after_signtr)
 {

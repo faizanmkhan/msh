@@ -4,12 +4,11 @@ LDFLAGS = -lreadline
 LIBFT_DIR	= ./libft
 NAME = minishell
 
-SRCS = myshell.c utils.c parse_env.c init.c parse_input.c \
-		additional_functions.c token_helper.c create_command.c \
-		executor.c signals.c redirection_setup.c find_executable.c \
-		builtins.c builtin_cd.c builtin_export.c buildin_env.c pipe_line.c \
-		create_commands_operators.c create_commands_words.c execute_single_cmd.c \
-		execute_pipeline_cmds.c tokenizing_input.c
+SRCS = src/builtin_functions/builtin_env.c src/builtin_functions/builtin_cd.c src/builtin_functions/builtin_export.c src/builtin_functions/builtins.c \
+src/commands_creation/create_command.c src/commands_creation/create_commands_operators.c src/commands_creation/create_commands_words.c \
+src/execution/execute_pipeline_cmds.c src/execution/execute_single_cmd.c src/execution/executor.c src/execution/find_executable.c src/execution/pipe_line.c \
+src/execution/redirection_setup.c src/initializing/init.c src/initializing/signals.c src/parsing/parse_env.c src/parsing/parse_input.c src/parsing/token_helper.c \
+src/parsing/tokenizing_input.c src/utils/additional_functions.c src/utils/utils.c src/myshell.c
 
 OBJS = $(SRCS:.c=.o)
 
