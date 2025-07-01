@@ -57,6 +57,8 @@ typedef struct s_shell_data
 {
 	int			exit_status;
 	char		**envp;
+	int			saved_stdin;
+	int			saved_stdout;
 	pid_t		pid;
 	t_cmd		*head_cmd;
 	t_token		*head_token;
@@ -87,6 +89,8 @@ int		setup_pipe_if_needed(t_cmd *current);
 int		handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current);
 void	handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd);
 char	*find_executable(t_shell_data *shell, char *command);
+int		reset_redir(t_shell_data *shell);
+
 
 // =================== COMMANDS CREATION ===================
 t_cmd	*create_cmd_with_token(t_shell_data *myshell);
