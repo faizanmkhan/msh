@@ -6,7 +6,7 @@
 /*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:07:44 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 20:19:48 by faikhan          ###   ########.fr       */
+/*   Updated: 2025/07/02 13:12:51 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	child_process(t_shell_data *myshell, char *executable)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+
 	if (setup_redirections(myshell->head_cmd) == -1)
 		exit (1);
 	execve(executable, myshell->head_cmd->args, myshell->envp);
@@ -26,19 +25,13 @@ static void	child_process(t_shell_data *myshell, char *executable)
 static int	parent_process(pid_t pid, char *executable)
 {
 	int	status;
-	int	sig;
 
 	waitpid(pid, &status, 0);
 	free (executable);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
-	{
-		sig = WTERMSIG(status);
-		if (sig == SIGQUIT)
-			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-		return (128 + sig);
-	}
+		return (128 + WTERMSIG(status));
 	return (0);
 }
 
