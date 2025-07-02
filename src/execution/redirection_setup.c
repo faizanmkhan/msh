@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_setup.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: korzecho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:08:25 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 17:08:26 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:20:16 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ static	int	handle_heredoc(t_cmd *cmd)
 		return (-1);
 	while (1)
 	{
+		set_signals_for_parsing();
 		line = readline("> ");
+		set_signals_for_execution();
 		if (!line || ft_strcmp(line, cmd->heredoc_delim) == 0)
 		{
 			free(line);

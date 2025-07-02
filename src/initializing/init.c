@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: korzecho <korzecho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:23:15 by korzecho          #+#    #+#             */
-/*   Updated: 2025/07/01 21:02:30 by korzecho         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:19:06 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	core_shell_loop(t_shell_data *myshell)
 {
 	char	*input;
 
-	set_signals(myshell);
 	while (42)
 	{
+		set_signals_for_parsing();
 		input = readline("mY_sHEll:~$ ");
+		set_signals_for_execution();
 		if (!input)
 		{
 			printf("exit\n");
