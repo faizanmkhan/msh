@@ -44,6 +44,8 @@ void	core_shell_loop(t_shell_data *myshell)
 		{
 			managing_input(myshell, input);
 			myshell->exit_status = command_execution(myshell);
+			if (myshell->head_cmd->heredoc_delim)
+				unlink(myshell->head_cmd->heredoc_delim);
 			myshell->syntax_err = 0;
 		}
 		free (input);
