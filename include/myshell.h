@@ -97,7 +97,7 @@ void	handle_word_expand(t_cmd *cmd, t_token *token, t_shell_data *myshell);
 void	handle_pipe(t_cmd **current);
 void	handle_indirection(t_cmd *current, t_token **token);
 void	handle_outdirection(t_cmd *current, t_token **token, int mode);
-void	handle_heredoc_token(t_cmd *current, t_token **token);
+int		handle_heredoc_token(t_cmd *current, t_token **token);
 
 // =================== PARSING ===================
 int	is_metachar(char c);

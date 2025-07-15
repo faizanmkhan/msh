@@ -53,7 +53,15 @@ static void	check_token(t_token *token, t_cmd *current, t_shell_data *myshell)
 		}
 		else if (token->type == TOK_HEREDOC)
 		{
-			handle_heredoc_token(current, &token);
+			if (handle_heredoc_token(current, &token) == -1)
+			{
+				syntax_error(myshell);
+				//ft_putstr_fd("\n", STDIN_FILENO);
+				rl_on_new_line();
+				rl_replace_line("", 0);
+				rl_redisplay();
+				break ;
+			}
 			continue;
 		}
 		token = token->next;

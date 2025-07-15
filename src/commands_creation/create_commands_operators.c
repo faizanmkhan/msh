@@ -31,12 +31,15 @@ void	handle_outdirection(t_cmd *current, t_token **token, int mode)
 	}
 }
 
-void	handle_heredoc_token(t_cmd *current, t_token **token)
+int	handle_heredoc_token(t_cmd *current, t_token **token)
 {
 	*token = (*token)->next;
+	if (!*token)
+		return (-1);
 	if ((*token)->type == TOK_WORD || (*token)->type == TOK_SQUOTE
 		|| (*token)->type == TOK_DQUOTE)
 	{
 		current ->heredoc_delim = ft_strdup((*token)->value);
 	}
+	return (0);
 }
