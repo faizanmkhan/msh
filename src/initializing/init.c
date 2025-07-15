@@ -26,13 +26,15 @@ void	core_shell_loop(t_shell_data *myshell)
 {
 	char	*input;
 
-	set_signals(myshell);
 	while (42)
 	{
+		set_signals_for_parsing();
 		input = readline("mY_sHEll:~$ ");
+		set_signals_for_execution();
 		if (!input)
 		{
 			printf("exit\n");
+			free (input);
 			break ;
 		}
 		if (g_signal == SIGQUIT)
@@ -44,7 +46,7 @@ void	core_shell_loop(t_shell_data *myshell)
 		{
 			managing_input(myshell, input);
 			myshell->exit_status = command_execution(myshell);
-			if (myshell->head_cmd->heredoc_delim)
+			if (myshell->head_cmd && myshell->head_cmd->heredoc_delim)
 				unlink(myshell->head_cmd->heredoc_delim);
 			myshell->syntax_err = 0;
 		}

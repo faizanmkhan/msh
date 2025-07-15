@@ -126,9 +126,9 @@ void	init_shell_data(t_shell_data *myshell, char **envp);
 void	cleanup_shell(t_shell_data *shell);
 void	core_shell_loop(t_shell_data *myshell);
 void	managing_input(t_shell_data *myshell, char *input);
-void	set_signals(t_shell_data *myshell);
+void	set_signals_for_execution(void);
 void	free_commands(t_cmd *commands);
-void	quit_handler(int sig);
+void	set_signals_for_parsing(void);
 
 void syntax_error(t_shell_data *shell);
 #endif

@@ -2,7 +2,6 @@
 
 static void	child_process(t_shell_data *myshell, char *executable)
 {
-	signal(SIGQUIT, quit_handler);
 	if (setup_redirections(myshell->head_cmd) == -1)
 		exit (1);
 	execve(executable, myshell->head_cmd->args, myshell->envp);
@@ -35,7 +34,7 @@ int	execute_single_cmd(t_shell_data *myshell)
 	executable = find_executable(myshell, myshell->head_cmd->args[0]);
 	if (!executable)
 	{
-		ft_putstr_fd("Error: Command not found!", STDERR_FILENO);
+		ft_putstr_fd("Error: Command not found!\n", STDERR_FILENO);
 		return (127);
 	}
 	pid = fork();

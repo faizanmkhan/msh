@@ -1,36 +1,46 @@
 #include "../../include/myshell.h"
 
-static	void	interupter_handler(int sig)
+static void	signal_reset_prompt(int signo)
 {
-	g_signal = sig;
-	if (sig == SIGINT)
-	{
-		ft_putstr_fd("\n", STDIN_FILENO);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	(void)signo;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-void	quit_handler(int sig)
+static void	signal_print_newline(int signal)
 {
-	if (sig == SIGQUIT)
-	{
-		ft_putstr_fd("Quit (core dumped)\n", STDIN_FILENO);
-		exit(131);
-	}
+	(void)signal;
+	write(1, "\n", 1);
+	rl_on_new_line();
 }
 
-void	set_signals(t_shell_data *myshell)
+static void	ignore_sigquit(void)
 {
-	struct sigaction	sa;
+	struct sigaction	sig;
 
-	g_signal = 0;
-	myshell->exit_status = g_signal;
-	sa.sa_handler = interupter_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa, NULL);
+	ft_bzero(&sig, sizeof(sig));
+	sig.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sig, NULL);
+}
+
+void	set_signals_for_execution(void)
+{
+	struct sigaction	sig;
+
+	ft_bzero(&sig, sizeof(sig));
+	sig.sa_handler = &signal_print_newline;
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
+}
+
+void	set_signals_for_parsing(void)
+{
+	struct sigaction	sig;
+
+	ignore_sigquit();
+	ft_bzero(&sig, sizeof(sig));
+	sig.sa_handler = &signal_reset_prompt;
+	sigaction(SIGINT, &sig, NULL);
 }
