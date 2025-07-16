@@ -18,7 +18,7 @@ void	handle_argument_word(t_cmd	*cmd, t_token *token)
 	if (cmd->args)
 	{
 		i = -1;
-		while (i < count)
+		while (++i < count)
 			new_arg[i] = cmd->args[i];
 		free (cmd->args);
 	}
