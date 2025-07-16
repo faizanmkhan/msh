@@ -1,11 +1,32 @@
 #include "../../include/myshell.h"
 
+static int	check_blank(char *str)
+{
+	int	i;
+	int	space;
+
+	i = 0;
+	space = 1;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]))
+			space = 0;
+		else
+		{
+			space = 1;
+			return (space);
+		}
+		i++;
+	}
+	return (space);
+}
+
 void	managing_input(t_shell_data *myshell, char *input)
 {
 	(void)myshell;
 	if (ft_isprint(*input))
 	{
-		if (!isspace(*input))
+		if (check_blank(input))
 			add_history(input);
 	}
 	myshell->head_token = input_tokenaizer(input);
