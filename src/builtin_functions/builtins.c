@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 12:58:00 by faikhan           #+#    #+#             */
+/*   Updated: 2025/07/16 12:58:39 by faikhan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/myshell.h"
 
 int	is_builtin(char *command)
@@ -81,6 +93,7 @@ int	builtin_exit(t_shell_data *shell, char **args)
 		exit_code = ft_atoi(args[1]);
 	}
 	printf("exit\n");
-	cleanup_shell(shell);
 	exit(exit_code);
 }
+
+//	cleanup_shell(shell); line 96

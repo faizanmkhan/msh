@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_pipeline_cmds.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 13:07:16 by faikhan           #+#    #+#             */
+/*   Updated: 2025/07/16 13:07:17 by faikhan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/myshell.h"
 
 static int	execute_loop(t_cmd *current, t_shell_data *myshell, int prev_fd)

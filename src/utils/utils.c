@@ -1,11 +1,11 @@
 #include "../../include/myshell.h"
 
-void	cleanup_shell(t_shell_data *shell)
-{
-	free_env(shell->shell_env);
-	free_token(shell->head_token);
-	free_commands(shell->head_cmd);
-}
+// void	cleanup_shell(t_shell_data *shell)
+// {
+// 	free_env(shell->shell_env);
+// 	free_token(shell->head_token);
+// 	free_commands(shell->head_cmd);
+// }
 
 void	free_env(t_env_data *env)
 {
