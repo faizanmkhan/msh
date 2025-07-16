@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myshell.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: korzecho <korzecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 12:52:03 by faikhan           #+#    #+#             */
-/*   Updated: 2025/07/16 12:56:32 by faikhan          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:36:06 by korzecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			setup_pipe_if_needed(t_cmd *current);
 int			handle_parent_process(pid_t pid, int *prev_fd, t_cmd *current);
 void		handle_child_process(t_shell_data *shell,
 				t_cmd *current, int prev_fd);
+int			setup_heredoc(t_cmd *cmd);
 char		*find_executable(t_shell_data *shell, char *command);
 
 // =================== COMMANDS CREATION ===================
