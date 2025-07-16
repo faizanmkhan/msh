@@ -1,0 +1,6 @@
+{
+   suppress_readline_memory_leaks
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:readline
+}
