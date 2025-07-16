@@ -6,11 +6,29 @@
 /*   By: faikhan <faikhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:09:15 by faikhan           #+#    #+#             */
-/*   Updated: 2025/07/16 13:09:16 by faikhan          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:34:49 by faikhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/myshell.h"
+
+static void	update_signal(t_shell_data *myshell)
+{
+	myshell->exit_status = 130;
+	g_signal = 0;
+}
+
+static void	free_loop(t_shell_data *myshell)
+{
+	free_token(myshell->head_token);
+	free_commands(myshell->head_cmd);
+}
+
+static void	print_exit_free(char *input)
+{
+	printf("exit\n");
+	free (input);
+}
 
 void	init_shell_data(t_shell_data *myshell, char **envp)
 {
@@ -45,15 +63,11 @@ void	core_shell_loop(t_shell_data *myshell)
 		set_signals_for_execution();
 		if (!input)
 		{
-			printf("exit\n");
-			free (input);
+			print_exit_free(input);
 			break ;
 		}
 		if (g_signal == SIGQUIT)
-		{
-			myshell->exit_status = 130;
-			g_signal = 0;
-		}
+			update_signal(myshell);
 		if (input)
 		{
 			managing_input(myshell, input);
@@ -61,8 +75,7 @@ void	core_shell_loop(t_shell_data *myshell)
 			if (myshell->head_cmd && myshell->head_cmd->heredoc_delim)
 				unlink(myshell->head_cmd->heredoc_delim);
 			myshell->syntax_err = 0;
-			free_token(myshell->head_token);
-			free_commands(myshell->head_cmd);
+			free_loop(myshell);
 		}
 		free (input);
 	}

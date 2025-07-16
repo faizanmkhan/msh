@@ -9,11 +9,13 @@ static t_token	*in_direction(char *input, int *i)
 			(*i) += 2;
 			return (create_token("<<", TOK_HEREDOC));
 		}
-		else
+		else if (input[*i] == '<')
 		{
 			(*i)++;
 			return (create_token("<", TOK_IN_DIRECT));
 		}
+		else
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -27,11 +29,13 @@ static t_token	*out_direction(char *input, int *i)
 			(*i) += 2;
 			return (create_token(">>", TOK_APPEND));
 		}
-		else
+		else if (input[*i] == '>')
 		{
 			(*i)++;
 			return (create_token(">", TOK_OUT_DIRECT));
 		}
+		else
+			return (NULL);
 	}
 	return (NULL);
 }
