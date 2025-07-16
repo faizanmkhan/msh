@@ -49,6 +49,8 @@ void	core_shell_loop(t_shell_data *myshell)
 			if (myshell->head_cmd && myshell->head_cmd->heredoc_delim)
 				unlink(myshell->head_cmd->heredoc_delim);
 			myshell->syntax_err = 0;
+			free_token(myshell->head_token);
+			free_commands(myshell->head_cmd);
 		}
 		free (input);
 	}

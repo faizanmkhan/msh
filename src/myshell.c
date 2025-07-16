@@ -10,6 +10,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	init_shell_data(&myshell, envp);
 	core_shell_loop(&myshell);
-	cleanup_shell(&myshell);
+	//cleanup_shell(&myshell);
+	free_env(myshell.shell_env);
 	return (0);
 }
