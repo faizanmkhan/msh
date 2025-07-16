@@ -45,6 +45,8 @@ void	handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd)
 {
 	char	*executable;
 
+	if (setup_redirections(current) == -1)
+		exit(1);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -56,8 +58,6 @@ void	handle_child_process(t_shell_data *shell, t_cmd *current, int prev_fd)
 		dup2(current->pipe_fd[1], STDOUT_FILENO);
 		close(current->pipe_fd[1]);
 	}
-	if (setup_redirections(current) == -1)
-		exit(1);
 	if (is_builtin(current->args[0]))
 		exit(execute_builtin(shell, current));
 	executable = find_executable(shell, current->args[0]);
